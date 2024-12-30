@@ -1,0 +1,221 @@
+/* General reset and box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Main container: Flexbox for two-column layout */
+.container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Left side: Blog system description */
+.left-side {
+    flex: 1;
+    background-color: #3b5998; /* Facebook-like blue */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 40px;
+    height: 100%;
+}
+
+.left-side h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.left-side p {
+    font-size: 1.4rem;
+    font-weight: 400;
+    opacity: 0.9;
+    max-width: 300px;
+    line-height: 1.6;
+}
+
+/* Right side: Login Form */
+.right-side {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 20px;
+}
+
+.login-box {
+    width: 100%;
+    max-width: 380px;
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.logo-container {
+    margin-bottom: 30px;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 26px;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.sub-heading {
+    color: #555;
+    font-size: 15px;
+    margin-bottom: 30px;
+    font-weight: 400;
+}
+
+/* Input fields */
+input {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    background-color: #fff;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+button:hover {
+    background-color: #3578e5;
+    transform: scale(1.05);
+}
+
+/* Footer Links */
+.footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #888;
+}
+
+.footer a {
+    color: #4a90e2;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #3578e5;
+}
+
+/* Responsive Design: Adjustments for smaller screens */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-side,
+    .right-side {
+        width: 100%;
+        height: auto;
+    }
+
+    .left-side {
+        padding: 30px;
+    }
+
+    .login-box {
+        padding: 25px;
+        margin-top: 20px;
+        max-width: 90%;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    .sub-heading {
+        font-size: 14px;
+    }
+
+    .footer a {
+        font-size: 12px;
+    }
+
+    .logo {
+        width: 120px;
+    }
+}
+
+/* On small devices (phones), hide the left container and only show the login container */
+@media (max-width: 480px) {
+    .container {
+        flex-direction: column;
+        height: 100%;
+    }
+
+    /* Hide the left side completely on mobile */
+    .left-side {
+        display: none; /* This hides the left content */
+    }
+
+    /* Ensure the login container takes up the full width on mobile */
+    .right-side {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 90%;
+    }
+
+    .login-box {
+        padding: 20px;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Adjust logo size for phones */
+    .logo {
+        width: 120px;
+    }
+}
