@@ -161,10 +161,8 @@
 
     });
 
-    const existingUsernames = ["user1", "user2", "user3"];
-
     function checkUsername(username) {
-        // alert('Please enter a username');
+
         const feedbackElement = document.getElementById("usernameFeedback");
         
         var usernameContent = {
