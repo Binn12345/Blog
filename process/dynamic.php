@@ -146,7 +146,7 @@
         if ($usernameCheckStmt->num_rows > 0) {
             echo json_encode([
                 "status" => 0,
-                "message" => "Username already exists"
+                "message" => "$u already exists"
             ]);
         } else if (empty($u)) {
             echo json_encode([
@@ -156,7 +156,7 @@
         } else {
             echo json_encode([
                 "status" => 1,
-                "message" => "Username is available."
+                "message" => "$u is available."
             ]);
         }
         
