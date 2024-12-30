@@ -3,6 +3,16 @@
 <?php 
   require_once("components/head.php");
 ?>
+<style>
+  .valid-feecback { 
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: .875em;
+    color: var(--bs-form-invalid-color);
+  }
+
+</style>
 <body>
 
   <main>
@@ -49,11 +59,9 @@
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
                         <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please choose a username.</div>
-                      </div>
+                        <input type="text" name="username" class="form-control" id="yourUsername" oninput="checkUsername(this.value)" required>
+                        <div class="valid-feecback"  id="usernameFeedback">Please choose a username.</div>
                     </div>
 
                     <div class="col-12">
@@ -92,64 +100,101 @@
 
   <?php require_once("components/script.php")?>
   <script>
+    
     $(document).ready(function () {
-    $('#create').click(function (event) {
-      event.preventDefault(); // Prevent the default form submission
-      
-      // Serialize the form data
-      var formData = $('#serial input, #serial select, #serial textarea').serialize();
-      // Perform an AJAX request
-      $.ajax({
-        url: 'process/dynamic.php', // Replace with your server-side script URL
-        type: 'POST',
-        data: formData,
-        success: function (response) {
-          if (response.status != 0 ) {
-            const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'bottom-end',
-                            showConfirmButton: false,
-                            timer: 4000,
-                            background: '#59b259',
-                            color: '#ffff',
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.resumeTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        });
-                        Toast.fire({
-                            icon: 'success',
-                            title: response.message
-                        });
-          } else {
-            const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'bottom-end',
-                            showConfirmButton: false,
-                            timer: 4000,
-                            background: '#f64341',
-                            color: '#ffff',
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                toast.addEventListener('mouseenter', Swal.resumeTimer)
-                                toast.addEventListener('mouseleave', Swal.resumeTimer)
-                            }
-                        });
-                        Toast.fire({
-                            icon: 'warning',
-                            title: response.message
-                        });
+      $('#create').click(function (event) {
+        event.preventDefault(); // Prevent the default form submission
+        
+        // Serialize the form data
+        var formData = $('#serial input, #serial select, #serial textarea').serialize();
+        // Perform an AJAX request
+        $.ajax({
+          url: 'process/dynamic.php', // Replace with your server-side script URL
+          type: 'POST',
+          data: formData,
+          success: function (response) {
+            if (response.status != 0 ) {
+              const Toast = Swal.mixin({
+                              toast: true,
+                              position: 'bottom-end',
+                              showConfirmButton: false,
+                              timer: 4000,
+                              background: '#59b259',
+                              color: '#ffff',
+                              timerProgressBar: true,
+                              didOpen: (toast) => {
+                                  toast.addEventListener('mouseenter', Swal.resumeTimer)
+                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                              }
+                          });
+                          Toast.fire({
+                              icon: 'success',
+                              title: response.message
+                          });
+            } else {
+              const Toast = Swal.mixin({
+                              toast: true,
+                              position: 'bottom-end',
+                              showConfirmButton: false,
+                              timer: 4000,
+                              background: '#f64341',
+                              color: '#ffff',
+                              timerProgressBar: true,
+                              didOpen: (toast) => {
+                                  toast.addEventListener('mouseenter', Swal.resumeTimer)
+                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                              }
+                          });
+                          Toast.fire({
+                              icon: 'warning',
+                              title: response.message
+                          });
+            }
+    
+          },
+          error: function (xhr, status, error) {
+            console.error('Error:', error);
+            alert('An error occurred while creating the account.');
           }
-   
-        },
-        error: function (xhr, status, error) {
-          console.error('Error:', error);
-          alert('An error occurred while creating the account.');
-        }
+        });
       });
+
     });
-  });
+
+    const existingUsernames = ["user1", "user2", "user3"];
+
+    function checkUsername(username) {
+        // alert('Please enter a username');
+        const feedbackElement = document.getElementById("usernameFeedback");
+        
+        var usernameContent = {
+          hjob: "toUsername",
+          userss: username,
+        }
+
+        $.ajax({
+          url: 'process/dynamic.php', // Replace with your server-side script URL
+          type: 'POST',
+          data: usernameContent,
+          success: function (response) {
+            if (response.status!= 1 ) {
+              feedbackElement.textContent = response.message;
+              feedbackElement.style.color = "red";
+              feedbackElement.style.display = "block";
+            } else {
+              feedbackElement.textContent = response.message;
+              feedbackElement.style.color = "green";
+              feedbackElement.style.display = "block";
+
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error('Error:', error);
+            alert('An error occurred while checking the username.');
+          }
+        });
+        
+      }
   </script>
 
 </body>
