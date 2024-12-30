@@ -171,11 +171,11 @@
         }
 
         $.ajax({
-          url: 'process/dynamic.php', // Replace with your server-side script URL
+          url: 'process/dynamic.php', 
           type: 'POST',
           data: usernameContent,
           success: function (response) {
-            if (response.status!= 1 ) {
+            if (response.status != 1 ) {
               /* css nya kumabaga append */
               feedbackElement.textContent = response.message;
               feedbackElement.style.color = "red";
