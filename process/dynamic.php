@@ -23,7 +23,7 @@
     }
 
     function tosave($n,$e,$u,$p,$t) {
-
+        
         $connection = getDbConnection(); // Get the global DB connection
 
         // Disable error reporting display (to avoid debug messages mixing with JSON)
@@ -120,7 +120,8 @@
     }
 
     function toUsername($u) {
-        $connection = getDbConnection(); // Get the global DB connection
+
+        $connection = getDbConnection();
         
         // Disable error reporting display (to avoid debug messages mixing with JSON)
         ini_set('display_errors', 0);
