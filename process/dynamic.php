@@ -11,13 +11,13 @@
     $terms = isset($terms) ? 1 : 0;
     $hjob  = isset($hjob) ? $hjob : $_POST['hjob'];
 
-    // var_dump('<pre>',$_POST,$hjob,$_POST);die;
+    // var_dump('<pre>',$_POST);
     switch ($hjob) {
             case 'tosave':
                 echo tosave($name,$email,$username,$password,$terms);
                 break;
             case 'toUsername':
-                echo toUsername($userss);
+                echo toUserOrEmail($key,$value);
                 break;
             case 'toedit':
     }
@@ -119,7 +119,7 @@
         // return $message;
     }
 
-    function toUsername($u) {
+    function toUserOrEmail($k,$v) {
 
         $connection = getDbConnection();
         
@@ -127,8 +127,12 @@
         ini_set('display_errors', 0);
         header('Content-Type: application/json');
 
+        $tblColumn = '';
+        if($k == 'username') $tblColumn = 'username';
+        else $tblColumn = 'email'; 
+        
         // Check if the username already exists
-        $usernameCheckQuery = "SELECT username FROM users WHERE username =?";
+        $usernameCheckQuery = "SELECT ".$tblColumn." FROM users WHERE ".$tblColumn." =?";
         $usernameCheckStmt = $connection->prepare($usernameCheckQuery);
         
         if (!$usernameCheckStmt) {
@@ -139,27 +143,58 @@
             exit;
         }
         
-        // Bind the username parameter and execute
-        $usernameCheckStmt->bind_param("s", $u);
-        $usernameCheckStmt->execute();
-        $usernameCheckStmt->store_result();
-        
-        if ($usernameCheckStmt->num_rows > 0) {
-            echo json_encode([
-                "status" => 0,
-                "message" => "$u already exists"
-            ]);
-        } else if (empty($u)) {
-            echo json_encode([
-                "status" => 0,
-                "message" => "Username is required!"
-            ]);
+        if($k == 'username') { 
+                // Bind the username parameter and execute
+                $usernameCheckStmt->bind_param("s", $v);
+                $usernameCheckStmt->execute();
+                $usernameCheckStmt->store_result();
+                
+                if ($usernameCheckStmt->num_rows > 0) {
+                    echo json_encode([
+                        "key"  => "u",
+                        "status" => 0,
+                        "message" => "$v already exists"
+                    ]);
+                } else if (empty($v)) {
+                    echo json_encode([
+                        "key"  => "u",
+                        "status" => 0,
+                        "message" => "Username is required!"
+                    ]);
+                } else {
+                    echo json_encode([
+                        "key"  => "u",
+                        "status" => 1,
+                        "message" => "$v is available."
+                    ]);
+                }
         } else {
-            echo json_encode([
-                "status" => 1,
-                "message" => "$u is available."
-            ]);
+                // Bind the username parameter and execute
+                $usernameCheckStmt->bind_param("s", $v);
+                $usernameCheckStmt->execute();
+                $usernameCheckStmt->store_result();
+                
+                if ($usernameCheckStmt->num_rows > 0) {
+                    echo json_encode([
+                        "key"  => "e",
+                        "status" => 0,
+                        "message" => "$v already exists"
+                    ]);
+                } else if (empty($v)) {
+                    echo json_encode([
+                        "key"  => "e",
+                        "status" => 0,
+                        "message" => "Email is required!"
+                    ]);
+                } else {
+                    echo json_encode([
+                        "key"  => "e",
+                        "status" => 1,
+                        "message" => "$v is available."
+                    ]);
+                }
         }
+      
         
         // Close the statement
         $usernameCheckStmt->close();

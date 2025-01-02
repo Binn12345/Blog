@@ -47,20 +47,20 @@
                       <input type="text" name="name" class="form-control" id="yourName" required>
                       <div class="invalid-feedback">Please, enter your name!</div>
                     </div>
-
+                    <!-- checkUsername() 'key','EmailValue','UserVal' -->
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Email</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="email" name="email" class="form-control" id="yourEmail" required>
-                        <div class="invalid-feedback">Please enter a valid Email adddress!</div>
+                        <input type="email" name="email" class="form-control" id="yourEmail" oninput="checkUserEmailVal('email',this.value)" required>
+                        <div class="invalid-feedback" id="emailFeedback">Please enter a valid Email adddress!</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                         <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-                        <input type="text" name="username" class="form-control" id="yourUsername" oninput="checkUsername(this.value)" required>
+                        <input type="text" name="username" class="form-control" id="yourUsername" oninput="checkUserEmailVal('username',this.value)" required>
                         <div class="valid-feecback"  id="usernameFeedback">Please choose a username.</div>
                     </div>
 
@@ -103,16 +103,16 @@
     
     $(document).ready(function () {
       $('#create').click(function (event) {
-        event.preventDefault(); // Prevent the default form submission
-        
-        // Serialize the form data
+        event.preventDefault();
+      
         var formData = $('#serial input, #serial select, #serial textarea').serialize();
-        // Perform an AJAX request
+       
         $.ajax({
-          url: 'process/dynamic.php', // Replace with your server-side script URL
+          url: 'process/dynamic.php',
           type: 'POST',
           data: formData,
           success: function (response) {
+            alert(response);
             if (response.status != 0 ) {
               const Toast = Swal.mixin({
                               toast: true,
@@ -161,13 +161,15 @@
 
     });
 
-    function checkUsername(username) {
+    function checkUserEmailVal(key,val) {
 
         const feedbackElement = document.getElementById("usernameFeedback");
+        const emailFeedback = document.getElementById("emailFeedback");
         
         var usernameContent = {
           hjob: "toUsername",
-          userss: username,
+          key : key,
+          value: val,
         }
 
         $.ajax({
@@ -175,17 +177,35 @@
           type: 'POST',
           data: usernameContent,
           success: function (response) {
-            if (response.status != 1 ) {
-              /* css nya kumabaga append */
-              feedbackElement.textContent = response.message;
-              feedbackElement.style.color = "red";
-              feedbackElement.style.display = "block";
-            } else {
-              feedbackElement.textContent = response.message;
-              feedbackElement.style.color = "green";
-              feedbackElement.style.display = "block";
+            // console.log(response);
+            if(response.key == 'e'){
+              if (response.status != 1 ) {
+                /* css nya kumabaga append */
+                emailFeedback.textContent = response.message;
+                emailFeedback.style.color = "red";
+                emailFeedback.style.display = "block";
+              } else {
+                emailFeedback.textContent = response.message;
+                emailFeedback.style.color = "green";
+                emailFeedback.style.display = "block";
 
+              }
+            } else {
+              if (response.status != 1 ) {
+                /* css nya kumabaga append */
+                feedbackElement.textContent = response.message;
+                feedbackElement.style.color = "red";
+                feedbackElement.style.display = "block";
+              } else {
+                feedbackElement.textContent = response.message;
+                feedbackElement.style.color = "green";
+                feedbackElement.style.display = "block";
+
+              }
             }
+           
+
+
           },
           error: function (xhr, status, error) {
             console.error('Error:', error);
@@ -194,6 +214,40 @@
         });
         
       }
+      
+      // function checkEmail(email) {
+
+      //   const feedbackElement = document.getElementById("emailFeedback");
+
+      //   var EmailContent = {
+      //     hjob: "toEmail",
+      //     email: email,
+      //   }
+
+      //   $.ajax({
+      //     url: 'process/dynamic.php', 
+      //     type: 'POST',
+      //     data: EmailContent,
+      //     success: function (response) {
+      //       if (response.status != 1 ) {
+      //         /* css nya kumabaga append */
+      //         emailFeedback.textContent = response.message;
+      //         emailFeedback.style.color = "red";
+      //         emailFeedback.style.display = "block";
+      //       } else {
+      //         emailFeedback.textContent = response.message;
+      //         emailFeedback.style.color = "green";
+      //         emailFeedback.style.display = "block";
+
+      //       }
+      //     },
+      //     error: function (xhr, status, error) {
+      //       console.error('Error:', error);
+      //       alert('An error occurred while checking the username.');
+      //     }
+      //   });
+
+      // }
   </script>
 
 </body>
