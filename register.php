@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php 
+  session_start();  
   require_once("components/head.php");
+
+
+
+
+  if (isset($_SESSION['user_id'])) {
+    // Redirect to login if  logged in
+
+    header('Location: site/');
+    exit;
+  }
+
 ?>
 <style>
   .valid-feecback { 
@@ -84,7 +96,7 @@
                       <button class="btn btn-primary w-100" id='create'>Create Account</button>
                     </div>
                     <div class="col-12">
-                      <p class="small mb-0">Already have an account? <a href="../Blog/">Log in</a></p>
+                      <p class="small mb-0">Already have an account? <a href="/">Log in</a></p>
                     </div>
                   </div>
                 </div>
@@ -98,157 +110,8 @@
     </div>
   </main><!-- End #main -->
 
-  <?php require_once("components/script.php")?>
-  <script>
-    
-    $(document).ready(function () {
-      $('#create').click(function (event) {
-        event.preventDefault();
-      
-        var formData = $('#serial input, #serial select, #serial textarea').serialize();
-       
-        $.ajax({
-          url: 'process/dynamic.php',
-          type: 'POST',
-          data: formData,
-          success: function (response) {
-            alert(response);
-            if (response.status != 0 ) {
-              const Toast = Swal.mixin({
-                              toast: true,
-                              position: 'bottom-end',
-                              showConfirmButton: false,
-                              timer: 4000,
-                              background: '#59b259',
-                              color: '#ffff',
-                              timerProgressBar: true,
-                              didOpen: (toast) => {
-                                  toast.addEventListener('mouseenter', Swal.resumeTimer)
-                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
-                              }
-                          });
-                          Toast.fire({
-                              icon: 'success',
-                              title: response.message
-                          });
-            } else {
-              const Toast = Swal.mixin({
-                              toast: true,
-                              position: 'bottom-end',
-                              showConfirmButton: false,
-                              timer: 4000,
-                              background: '#f64341',
-                              color: '#ffff',
-                              timerProgressBar: true,
-                              didOpen: (toast) => {
-                                  toast.addEventListener('mouseenter', Swal.resumeTimer)
-                                  toast.addEventListener('mouseleave', Swal.resumeTimer)
-                              }
-                          });
-                          Toast.fire({
-                              icon: 'warning',
-                              title: response.message
-                          });
-            }
-    
-          },
-          error: function (xhr, status, error) {
-            console.error('Error:', error);
-            alert('An error occurred while creating the account.');
-          }
-        });
-      });
-
-    });
-
-    function checkUserEmailVal(key,val) {
-
-        const feedbackElement = document.getElementById("usernameFeedback");
-        const emailFeedback = document.getElementById("emailFeedback");
-        
-        var usernameContent = {
-          hjob: "toUsername",
-          key : key,
-          value: val,
-        }
-
-        $.ajax({
-          url: 'process/dynamic.php', 
-          type: 'POST',
-          data: usernameContent,
-          success: function (response) {
-            // console.log(response);
-            if(response.key == 'e'){
-              if (response.status != 1 ) {
-                /* css nya kumabaga append */
-                emailFeedback.textContent = response.message;
-                emailFeedback.style.color = "red";
-                emailFeedback.style.display = "block";
-              } else {
-                emailFeedback.textContent = response.message;
-                emailFeedback.style.color = "green";
-                emailFeedback.style.display = "block";
-
-              }
-            } else {
-              if (response.status != 1 ) {
-                /* css nya kumabaga append */
-                feedbackElement.textContent = response.message;
-                feedbackElement.style.color = "red";
-                feedbackElement.style.display = "block";
-              } else {
-                feedbackElement.textContent = response.message;
-                feedbackElement.style.color = "green";
-                feedbackElement.style.display = "block";
-
-              }
-            }
-           
-
-
-          },
-          error: function (xhr, status, error) {
-            console.error('Error:', error);
-            alert('An error occurred while checking the username.');
-          }
-        });
-        
-      }
-      
-      // function checkEmail(email) {
-
-      //   const feedbackElement = document.getElementById("emailFeedback");
-
-      //   var EmailContent = {
-      //     hjob: "toEmail",
-      //     email: email,
-      //   }
-
-      //   $.ajax({
-      //     url: 'process/dynamic.php', 
-      //     type: 'POST',
-      //     data: EmailContent,
-      //     success: function (response) {
-      //       if (response.status != 1 ) {
-      //         /* css nya kumabaga append */
-      //         emailFeedback.textContent = response.message;
-      //         emailFeedback.style.color = "red";
-      //         emailFeedback.style.display = "block";
-      //       } else {
-      //         emailFeedback.textContent = response.message;
-      //         emailFeedback.style.color = "green";
-      //         emailFeedback.style.display = "block";
-
-      //       }
-      //     },
-      //     error: function (xhr, status, error) {
-      //       console.error('Error:', error);
-      //       alert('An error occurred while checking the username.');
-      //     }
-      //   });
-
-      // }
-  </script>
+  <?php require_once("components/script.php") ?>
+  <?php require_once("process/netscript.php") ?>
 
 </body>
 

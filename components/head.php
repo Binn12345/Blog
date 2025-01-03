@@ -38,6 +38,18 @@
 
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
+  <style>
+   .custom-alert .swal2-title {
+      font-size: 2px; /* Adjust this size */
+      line-height: 1.5;
+    }
+
+    .custom-alert .swal2-popup {
+      padding: 10px; /* Optional: adjust padding if needed */
+      /* line-height: 1.5; */
+    }
+
+  </style>
 
   <!-- =======================================================
   * Template Name: NiceAdmin

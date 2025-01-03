@@ -1,6 +1,19 @@
 <?php
 
+    // use PHPMailer\PHPMailer\PHPMailer;
+    // use PHPMailer\PHPMailer\Exception;
+
+    // // Load PHPMailer
+    // require 'path/to/PHPMailer/src/Exception.php';
+    // require 'path/to/PHPMailer/src/PHPMailer.php';
+    // require 'path/to/PHPMailer/src/SMTP.php';
+    session_start();
     require_once '../config/functions.php';
+
+    // Disable error reporting display (to avoid debug messages mixing with JSON)
+    ini_set('display_errors', 0);
+    header('Content-Type: application/json');
+
 
     // Sanitize the $_POST array
     foreach ($_POST as $key => $value) $_POST[$key] = htmlspecialchars(trim($value), ENT_QUOTES, 'UTF-8');
@@ -9,9 +22,10 @@
     extract($_POST);
 
     $terms = isset($terms) ? 1 : 0;
+    $remember = isset($remember) ? 1 : 0;
     $hjob  = isset($hjob) ? $hjob : $_POST['hjob'];
 
-    // var_dump('<pre>',$_POST);
+    // var_dump('<pre>',$_POST,$hjob);
     switch ($hjob) {
             case 'tosave':
                 echo tosave($name,$email,$username,$password,$terms);
@@ -19,17 +33,16 @@
             case 'toUsername':
                 echo toUserOrEmail($key,$value);
                 break;
+            case 'toLogin':
+                echo toLoginFunc($username,$password,$remember);
             case 'toedit':
     }
 
     function tosave($n,$e,$u,$p,$t) {
         
+
+        $type = $type ?? '0';
         $connection = getDbConnection(); // Get the global DB connection
-
-        // Disable error reporting display (to avoid debug messages mixing with JSON)
-        ini_set('display_errors', 0);
-        header('Content-Type: application/json');
-
         // Hash the password with bcrypt
         $hashedPassword = password_hash($p, PASSWORD_BCRYPT);
 
@@ -83,7 +96,7 @@
             ]);
         } else {
             // Prepare the SQL query for inserting the new user
-            $stmt = $connection->prepare("INSERT INTO users (name, email, username, password, terms) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $connection->prepare("INSERT INTO users (name, email, username, password, usertype, terms) VALUES (?, ?, ?, ?, ? ,?)");
             if (!$stmt) {
                 echo json_encode([
                     "status" => 0,
@@ -93,14 +106,51 @@
             }
 
             // Bind parameters
-            $stmt->bind_param("ssssi", $n, $e, $u, $hashedPassword, $t);
+            $stmt->bind_param("ssssii", $n, $e, $u, $hashedPassword,$type,$t);
 
             // Execute the query
             if ($stmt->execute()) {
-                echo json_encode([
-                    "status" => 1,
-                    "message" => "Account successfully saved."
-                ]);
+
+                // $mail = new PHPMailer(true);
+
+                try {
+                    // // SMTP Configuration
+                    // $mail->isSMTP();
+                    // $mail->Host = 'smtp.yourdomain.com';
+                    // $mail->SMTPAuth = true;
+                    // $mail->Username = 'your-smtp-username';
+                    // $mail->Password = 'your-smtp-password';
+                    // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    // $mail->Port = 587;
+
+                    // // Email Content
+                    // $mail->setFrom('no-reply@yourdomain.com', 'Your Platform Name');
+                    // $mail->addAddress($e, $n);
+                    // $mail->Subject = 'Welcome to Our Platform!';
+                    // $mail->Body = "Dear $n,\n\nThank you for registering an account with us. Your username is: $u.\n\nRegards,\nThe Team";
+
+                    // // Send Email
+                    // $mail->send();
+
+                    echo json_encode([
+                        "status" => 1,
+                        "message" => "Account successfully saved. An email has been sent to $e."
+                    ]);
+                } catch (Exception $e) {
+                    echo json_encode([
+                        "status" => 1,
+                        "message" => "Account successfully saved, but email sending failed: "
+                    ]);
+                }
+
+
+
+
+
+                // echo json_encode([
+                //     "status" => 1,
+                //     "message" => "Account successfully saved."
+                // ]);
             } else {
                 echo json_encode([
                     "status" => 0,
@@ -115,18 +165,13 @@
 
         // Close the email check statement
         $emailCheckStmt->close();
-        mysqli_close($connection);
+        // mysqli_close($connection);
         // return $message;
     }
 
     function toUserOrEmail($k,$v) {
 
         $connection = getDbConnection();
-        
-        // Disable error reporting display (to avoid debug messages mixing with JSON)
-        ini_set('display_errors', 0);
-        header('Content-Type: application/json');
-
         $tblColumn = '';
         if($k == 'username') $tblColumn = 'username';
         else $tblColumn = 'email'; 
@@ -202,6 +247,60 @@
         // Close the database connection
         // mysqli_close($connection);
 
+    }
+
+    function toLoginFunc($u,$p,$r) {
+        // var_dump('<pre>',$u,$p,$r);
+
+        $username = trim($u);
+        $password = $p;
+
+
+        $connection = getDbConnection();
+        // Validate input
+        if (empty($username) || empty($password)) {
+            echo "Please fill in all fields.";
+            exit;
+        }
+
+        // Check user in the database
+        $query = "SELECT id, username, password FROM users WHERE username = ? OR email = ?";
+        $stmt = $connection->prepare($query);
+        $stmt->bind_param('ss', $username, $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $user = $result->fetch_assoc();
+
+            // Verify the password
+            if (password_verify($password, $user['password'])) {
+                // Set session variables
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+
+                echo json_encode([
+                    "status" => 1,
+                    "message" => "Login successful."
+                ]);
+                exit;
+            } else {
+                echo json_encode([
+                    "status" => 0,
+                    "message" => "Invalid password."
+                ]);
+                // echo "Invalid password.";
+            }
+        } else {
+            echo json_encode([
+                "status" => 0,
+                "message" => "No user found with that username/email."
+            ]);
+            // echo "No user found with that username/email.";
+        }
+
+        $stmt->close();
+        
     }
 
 

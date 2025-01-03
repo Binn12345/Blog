@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php 
+
+  session_start();
   require_once('components/head.php'); 
   require_once('config/functions.php'); 
 
@@ -8,8 +10,30 @@
   $key = generateKey(); 
   $originalText = "This is a secret message.";
   $encryptedText = encryptData($originalText, $key);
-  
 
+ 
+
+  if (isset($_SESSION['user_id'])) {
+      // Redirect to login if not logged in
+
+      header('Location: site/');
+      exit;
+  } else {
+
+    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+          <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+          <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'SESSION IS DIE'
+                });
+         
+          </script>";
+  }
+
+
+  
 ?>
 <body>
 
@@ -37,12 +61,13 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <form class="row g-3 needs-validation" novalidate>
+                  <div class="row g-3 needs-validation" novalidate id="login">
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Username</label>
                       <div class="input-group has-validation">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <input type="hidden" name="hjob" value="toLogin"/> 
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
                         <div class="invalid-feedback">Please enter your username.</div>
                       </div>
@@ -54,19 +79,28 @@
                       <div class="invalid-feedback">Please enter your password!</div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                       <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                       </div>
-                    </div>
+                    </div> -->
+
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit">Login</button>
+                      <div class="form-check">
+                        <!-- <input class="form-check-input" name="remember" type="checkbox" value="accepted" id="acceptTerms" required> -->
+                        <input class="form-check-input" name="remember" type="checkbox" value="remember" id="rememberMe" required>
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <button class="btn btn-primary w-100" type="submit" id="doLogin">Login</button>
                     </div>
                     <div class="col-12">
                       <p class="small mb-0">Don't have account? <a href="register.php?proceed=<?php echo urlencode($encryptedText); ?>">Create an account</a></p>
                     </div>
-                  </form>
+                  </div>
 
                 </div>
               </div>
@@ -79,6 +113,7 @@
     </div>
   </main><!-- End #main -->
   <?php require_once("components/script.php")?>
+  <?php require_once("process/netscript.php") ?>
 </body>
 
 </html>
