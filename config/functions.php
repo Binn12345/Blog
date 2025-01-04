@@ -1,6 +1,7 @@
 <?php
 
-
+// phpinfo();
+// die;
 // var_dump($host);
 // Function to generate a random encryption key
 function generateKey($length = 32) {
