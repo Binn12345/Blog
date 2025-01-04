@@ -168,10 +168,12 @@
         UsernameElement.style.display = "block";
         return false;
       } else if ($('#yourPassword').val() == "") {
+
         PasswordElement.textContent = "Please enter your password";
         PasswordElement.style.color = "red";
         PasswordElement.style.display = "block";
         return false;
+
       } else if ($('#yourPassword').val() == "" && $('#yourPassword').val() == ""){
         // alert('Please enter your username and password');
         UsernameElement.textContent = "Please enter your username";
@@ -183,100 +185,100 @@
         return false;
       } else {
         var formData = $('#login input, #login select, #login textarea').serialize();
-      // console.log(formData[0]);
-      $.ajax({
-          url: 'process/dynamic.php',
-          method : 'POST',
-          data : formData,
-          success: function (data) {
-              console.log(data.messsage);
-              if (data.status === 1) {
-                  // Login successful
+        // console.log(formData[0]);
+        $.ajax({
+            url: 'process/dynamic.php',
+            method : 'POST',
+            data : formData,
+            success: function (data) {
+                console.log(data.messsage);
+                if (data.status === 1) {
+                    // Login successful
 
 
-                  const Toast = Swal.mixin({
-                toast: true,
-                position: 'bottom-end',
-                showConfirmButton: false,
-                timer: 1700,
-                background: '#59b259',
-                color: '#ffff',
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                  // Apply custom font size directly to the toast elements
-                  const title = Swal.getTitle();
-                  title.style.fontSize = '15px';
-                  title.style.lineHeight  = '1.50'; // Change this to your desired font size
+                    const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'bottom-end',
+                  showConfirmButton: false,
+                  timer: 1600,
+                  background: '#59b259',
+                  color: '#ffff',
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    // Apply custom font size directly to the toast elements
+                    const title = Swal.getTitle();
+                    title.style.fontSize = '15px';
+                    title.style.lineHeight  = '1.50'; // Change this to your desired font size
 
-                  toast.addEventListener('mouseenter', Swal.resumeTimer);
-                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    toast.addEventListener('mouseenter', Swal.resumeTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                  }
+                });
+
+                Toast.fire({
+                  icon: 'success',
+                  title: data.message
+                }).then(() => {
+                      
+                        window.location.href = 'site/';
+                    });;
+                    playNotificationSound();
+
+
+                
+                    // Swal.fire({
+                    //     icon: 'success',
+                    //     title: 'Success',
+                    //     text: data.message,
+                    //     timer: 3000,
+                    //     showConfirmButton: false
+                    // }).then(() => {
+                    //     // Redirect to the welcome page
+                    //     window.location.href = 'site/';
+                    // });
+                } else {
+                    // Login failed
+                    // Swal.fire({
+                    //     icon: 'error',
+                    //     title: 'Error',
+                    //     text: data.message
+                    // });
+
+                        const Toast = Swal.mixin({
+                              toast: true,
+                              position: 'bottom-end',
+                              showConfirmButton: false,
+                              timer: 1600,
+                              background: '#f64341',
+                              color: '#ffff',
+                              timerProgressBar: true,
+                              didOpen: (toast) => {
+                                  // Apply custom font size directly to the toast elements
+                                  const title = Swal.getTitle();
+                                  title.style.fontSize = '12.5px';
+                                  title.style.lineHeight  = '1.50'; // Change this to your desired font size
+
+                                  toast.addEventListener('mouseenter', Swal.resumeTimer);
+                                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                              }
+                          });
+                          Toast.fire({
+                              icon: 'warning',
+                              title: data.message
+                          });
+                          playLoginSound();
+                          
                 }
-              });
+            },
+            error: function (xhr, status, error) {
+                console.error(error,status,error);
+                alert('An error occurred while creating the account.');
 
-              Toast.fire({
-                icon: 'success',
-                title: data.message
-              }).then(() => {
-                    
-                      window.location.href = 'site/';
-                  });;
-                  playNotificationSound();
-
-
-              
-                  // Swal.fire({
-                  //     icon: 'success',
-                  //     title: 'Success',
-                  //     text: data.message,
-                  //     timer: 3000,
-                  //     showConfirmButton: false
-                  // }).then(() => {
-                  //     // Redirect to the welcome page
-                  //     window.location.href = 'site/';
-                  // });
-              } else {
-                  // Login failed
-                  // Swal.fire({
-                  //     icon: 'error',
-                  //     title: 'Error',
-                  //     text: data.message
-                  // });
-
-                      const Toast = Swal.mixin({
-                            toast: true,
-                            position: 'bottom-end',
-                            showConfirmButton: false,
-                            timer: 1600,
-                            background: '#f64341',
-                            color: '#ffff',
-                            timerProgressBar: true,
-                            didOpen: (toast) => {
-                                // Apply custom font size directly to the toast elements
-                                const title = Swal.getTitle();
-                                title.style.fontSize = '12.5px';
-                                title.style.lineHeight  = '1.50'; // Change this to your desired font size
-
-                                toast.addEventListener('mouseenter', Swal.resumeTimer);
-                                toast.addEventListener('mouseleave', Swal.resumeTimer);
-                            }
-                        });
-                        Toast.fire({
-                            icon: 'warning',
-                            title: data.message
-                        });
-                        playLoginSound();
-                        
-              }
-          },
-          error: function (xhr, status, error) {
-              console.error(error,status,error);
-              alert('An error occurred while creating the account.');
-
-              playNotificationSoundE();
-          }
-        
-        
-      });
+                playNotificationSoundE();
+            }
+          
+          
+        });
       }
       
 

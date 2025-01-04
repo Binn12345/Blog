@@ -35,6 +35,7 @@
                 break;
             case 'toLogin':
                 echo toLoginFunc($username,$password,$remember);
+                break;
             case 'toedit':
     }
 
