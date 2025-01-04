@@ -270,17 +270,16 @@
       
     });
 
-
     $(document).ready(function() {
         /* from login */
         const emailInput = document.getElementById("yourEmail");
         const emailElement = document.getElementById("emailFeedback");
         const UsernamelInput = document.getElementById("yourUsername");
-        const usernamelElement = document.getElementById("usernameFeedback");
+        const usernamelElement = document.getElementById("username-feedback");
         /* from register */
-        const usernameInput = document.getElementById('yourUsername');
+        const usernameInput = document.getElementById('yourUsernameR');
         const passwordInput = document.getElementById('yourPassword');
-        const UsernameElementE = document.getElementById("username-feedback");
+        const UsernameElementE = document.getElementById("usernameFeedback");
         const PasswordElementE = document.getElementById("password-feedback");
 
         $('#yourEmail').click(function (e) {
@@ -303,8 +302,18 @@
         });
 
         $('#yourUsername').click(function (e) {
-            // Check if the input field is empty
-            if ($(this).val() == "") {
+          // console.log($(this).val());
+          $('#yourUsername').on('input', function (e) {
+            const inputValue = $(this).val(); // Get the current value of the input field
+            if (inputValue != "") {
+              // Display the feedback message
+              usernamelElement.textContent = "Please enter your username";
+              usernamelElement.style.color = "red";
+              usernamelElement.style.display = "none";
+            }
+          });
+          //   Check if the input field is empty
+            if ($(this).val().trim() === "") {
               // Display the feedback message
               usernamelElement.textContent = "Please enter your username";
               usernamelElement.style.color = "red";
@@ -320,18 +329,56 @@
             
             }
         });
-           
-        /* from register here */         // Attach the onkeypress event listener
-        usernameInput.addEventListener('keypress', function (event) {
-              UsernameElementE.textContent = "Please enter your username";
-              UsernameElementE.style.color = "red";
-              UsernameElementE.style.display = "none";
+
+
+        if(usernameInput != null) {
+          usernameInput.addEventListener('keypress', function (event) {
+            $('#yourUsernameR').on('click', function (event) {
+              if(UsernameElementE.style.color == "red"){
+                UsernameElementE.style.display = "none";
+              } else {
+                UsernameElementE.style.display = "block";
+              }
               return false;
-        });
+            });
+            UsernameElementE.style.display = "none";
+            return false;
+          });
+        }
+
+        // UsernamelInput.addEventListener('keypress', function (event) {
+        //   // alert($(this).val());
+        //   if($(this).val()){
+        //     usernamelElement.style.display = "none";
+        //   }
+        // });
+          
+          // UsernamelInput.addEventListener('keypress', function (event) {
+          //   $('#yourUsername').on('click', function (event) {
+          //     if(usernamelElement.style.color == "red"){
+          //       usernamelElement.style.display = "none";
+          //     } else {
+          //       usernamelElement.style.display = "block";
+          //     }
+          //     return false;
+          //   });
+          //   usernamelElement.style.display = "none";
+          //   return false;
+          // });
+        
+        
+        
+      
+        
+           
+        // /* from register here */         // Attach the onkeypress event listener
+        // usernameInput.addEventListener('keypress', function (event) {
+        //   alert('Please enter your username');
+        //       // UsernameElementE.style.display = "none";
+        //       return false;
+        // });
 
         passwordInput.addEventListener('keypress', function (event) {
-              PasswordElementE.textContent = "Please enter your password";
-              PasswordElementE.style.color = "red";
               PasswordElementE.style.display = "none";
               return false;
         });
@@ -381,5 +428,5 @@
             console.error('Error playing notification sound: ' + error);
         });
     }
-    
+
 </script>

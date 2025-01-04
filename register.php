@@ -16,13 +16,13 @@
 
 ?>
 <style>
-  .valid-feecback { 
+  /* .valid-feecback { 
     display: none;
     width: 100%;
     margin-top: .25rem;
     font-size: .875em;
     color: var(--bs-form-invalid-color);
-  }
+  } */
 
 </style>
 <body>
@@ -70,10 +70,10 @@
                     </div>
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsernameR" class="form-label">Username</label>
                         <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-                        <input type="text" name="username" class="form-control" id="yourUsername" oninput="checkUserEmailVal('username',this.value)" required>
-                        <div class="valid-feecback"  id="usernameFeedback">Please choose a username.</div>
+                        <input type="text" name="username" class="form-control" id="yourUsernameR" oninput="checkUserEmailVal('username',this.value)" required>
+                        <div class="invalid-feedback"  id="usernameFeedback">Please choose a username.</div>
                     </div>
 
                     <div class="col-12">
