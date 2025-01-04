@@ -57,7 +57,7 @@
                       <input type="hidden" name="hjob" value="tosave" />
                       <label for="yourName" class="form-label">Name</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
-                      <div class="invalid-feedback">Please, enter your name!</div>
+                      <div class="invalid-feedback" id="nameFeedback">Please, enter your name!</div>
                     </div>
                     <!-- checkUsername() 'key','EmailValue','UserVal' -->
                     <div class="col-12">
@@ -79,7 +79,7 @@
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <div class="invalid-feedback" id="pFeedback">Please enter your password!</div>
                     </div>
 
                     <div class="col-12">

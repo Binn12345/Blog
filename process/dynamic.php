@@ -64,15 +64,44 @@
         $emailCheckStmt->execute();
         $emailCheckStmt->store_result();
 
-
-        if(!filter_var($e, FILTER_VALIDATE_EMAIL) || strpos($e, '@gmail.com') === false){
+        if (empty($n) && empty($e) && empty($u) && empty($p)) {
+            echo json_encode([
+                "status" => 0,
+                "message" => "All fields are required!",
+                "css"   => "block"
+            ]);
+            exit;
+        } else if (empty($n)) {
+            echo json_encode([
+                  "status" => 0,
+                "message" => "Name is required!"
+            ]);
+            exit;
+        } else if(!filter_var($e, FILTER_VALIDATE_EMAIL) || strpos($e, '@gmail.com') === false){
             echo json_encode([
                 "status" => 0,
                 "message" => "Invalid email address or not a @gmail.com account"
             ]);
             exit;
-        }
-
+        } else if (empty($n)) {
+            echo json_encode([
+                "status" => 0,
+                "message" => "Name is required!"
+            ]);
+            exit;
+        } else if (empty($u)){
+            echo json_encode([
+                "status" => 0,
+                "message" => "Username is required!"
+            ]);
+            exit;
+        } else if (empty($p)) {
+            echo json_encode([
+                "status" => 0,
+                "message" => "Password is required!"
+            ]);
+            exit;
+        } 
 
         if ($emailCheckStmt->num_rows > 0) {
             echo json_encode([
