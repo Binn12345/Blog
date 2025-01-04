@@ -7,12 +7,12 @@
 
 
 
-  // if (isset($_SESSION['user_id'])) {
-  //   // Redirect to login if  logged in
+  if (isset($_SESSION['user_id'])) {
+    // Redirect to login if  logged in
 
-  //   header('Location: site/');
-  //   exit;
-  // }
+    header('Location: site/');
+    exit;
+  }
 
 ?>
 <style>

@@ -20,16 +20,16 @@
       exit;
   } else {
 
-    echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
-          <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
-          <script>
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'SESSION IS DIE'
-                });
+    // echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+    //       <script src='https://code.jquery.com/jquery-3.6.0.min.js'></script>
+    //       <script>
+    //             Swal.fire({
+    //                 icon: 'error',
+    //                 title: 'Error',
+    //                 text: 'SESSION IS DIE'
+    //             });
          
-          </script>";
+    //       </script>";
   }
 
 
@@ -69,14 +69,14 @@
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
                         <input type="hidden" name="hjob" value="toLogin"/> 
                         <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <div class="invalid-feedback" id="username-feedback">Please enter your username.</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <div class="invalid-feedback" id="password-feedback">Please enter your password!</div>
                     </div>
 
                     <!-- <div class="col-12">

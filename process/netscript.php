@@ -1,88 +1,85 @@
 <script>
     
     $(document).ready(function () {
-      $('#create').click(function (event) {
-        event.preventDefault();
-      
-        var formData = $('#serial input, #serial select, #serial textarea').serialize();
+        $('#create').click(function (event) {
+          event.preventDefault();
+        
+          var formData = $('#serial input, #serial select, #serial textarea').serialize();
 
-        const feedbackElement = document.getElementById("usernameFeedback");
-        const emailFeedback = document.getElementById("emailFeedback");
-       
-        $.ajax({
-          url: 'process/dynamic.php',
-          type: 'POST',
-          data: formData,
-          success: function (response) {
-            // alert(response);
-            if (response.status != 0) {
+          const feedbackElement = document.getElementById("usernameFeedback");
+          const emailFeedback = document.getElementById("emailFeedback");
+        
+          $.ajax({
+            url: 'process/dynamic.php',
+            type: 'POST',
+            data: formData,
+            success: function (response) {
+              // alert(response);
+              if (response.status != 0) {
+                  const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'bottom-end',
+                    showConfirmButton: false,
+                    timer: 5000,
+                    background: '#59b259',
+                    color: '#ffff',
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                      // Apply custom font size directly to the toast elements
+                      const title = Swal.getTitle();
+                      title.style.fontSize = '12.5px';
+                      title.style.lineHeight  = '1.50'; // Change this to your desired font size
+
+                      toast.addEventListener('mouseenter', Swal.resumeTimer);
+                      toast.addEventListener('mouseleave', Swal.resumeTimer);
+                    }
+                  });
+
+                  Toast.fire({
+                    icon: 'success',
+                    title: response.message
+                  });
+
+                  // Reset form fields
+                  $('#yourName').val('');
+                  $('#yourEmail').val('');
+                  $('#yourUsername').val('');
+                  $('#yourPassword').val('');
+                  $('#acceptTerms').prop('checked', false);
+                  feedbackElement.style.display = "none";
+                  emailFeedback.style.display = "none";
+                } else {
                 const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'bottom-end',
-                  showConfirmButton: false,
-                  timer: 5000,
-                  background: '#59b259',
-                  color: '#ffff',
-                  timerProgressBar: true,
-                  didOpen: (toast) => {
-                    // Apply custom font size directly to the toast elements
-                    const title = Swal.getTitle();
-                    title.style.fontSize = '12.5px';
-                    title.style.lineHeight  = '1.50'; // Change this to your desired font size
+                                toast: true,
+                                position: 'bottom-end',
+                                showConfirmButton: false,
+                                timer: 5000,
+                                background: '#f64341',
+                                color: '#ffff',
+                                timerProgressBar: true,
+                                didOpen: (toast) => {
+                                    // Apply custom font size directly to the toast elements
+                                    const title = Swal.getTitle();
+                                    title.style.fontSize = '12.5px';
+                                    title.style.lineHeight  = '1.50'; // Change this to your desired font size
 
-                    toast.addEventListener('mouseenter', Swal.resumeTimer);
-                    toast.addEventListener('mouseleave', Swal.resumeTimer);
-                  }
-                });
-
-                Toast.fire({
-                  icon: 'success',
-                  title: response.message
-                });
-
-                // Reset form fields
-                $('#yourName').val('');
-                $('#yourEmail').val('');
-                $('#yourUsername').val('');
-                $('#yourPassword').val('');
-                $('#acceptTerms').prop('checked', false);
-                feedbackElement.style.display = "none";
-                emailFeedback.style.display = "none";
-              } else {
-              const Toast = Swal.mixin({
-                              toast: true,
-                              position: 'bottom-end',
-                              showConfirmButton: false,
-                              timer: 5000,
-                              background: '#f64341',
-                              color: '#ffff',
-                              timerProgressBar: true,
-                              didOpen: (toast) => {
-                                  // Apply custom font size directly to the toast elements
-                                  const title = Swal.getTitle();
-                                  title.style.fontSize = '12.5px';
-                                  title.style.lineHeight  = '1.50'; // Change this to your desired font size
-
-                                  toast.addEventListener('mouseenter', Swal.resumeTimer);
-                                  toast.addEventListener('mouseleave', Swal.resumeTimer);
-                              }
-                          });
-                          Toast.fire({
-                              icon: 'warning',
-                              title: response.message
-                          });
-            }
-    
-          },
-          error: function (xhr, status, error) {
-            console.error('Error:', error);
-            alert('An error occurred while creating the account.');
-          }
-        });
-      });
-
+                                    toast.addEventListener('mouseenter', Swal.resumeTimer);
+                                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                                }
+                            });
+                            Toast.fire({
+                                icon: 'warning',
+                                title: response.message
+                            });
+              }
       
-
+            },
+            error: function (xhr, status, error) {
+              console.error('Error:', error);
+              alert('An error occurred while creating the account.');
+            }
+          });
+        });
     });
 
     function checkUserEmailVal(key,val) {
@@ -139,13 +136,36 @@
         });
         
     }
-      
 
     $('#doLogin').click(function(e){
         e.preventDefault();
+        const UsernameElement = document.getElementById("username-feedback");
+        const PasswordElement = document.getElementById("password-feedback");
 
-        var formData = $('#login input, #login select, #login textarea').serialize();
-
+        // alert($('#yourUsername').val())
+        if($('#yourUsername').val() == ""){
+          // alert('Please enter your username');
+          UsernameElement.textContent = "Please enter your username";
+          UsernameElement.style.color = "red";
+          UsernameElement.style.display = "block";
+          return false;
+        } else if ($('#yourPassword').val() == "") {
+          PasswordElement.textContent = "Please enter your password";
+          PasswordElement.style.color = "red";
+          PasswordElement.style.display = "block";
+          return false;
+        } else if ($('#yourPassword').val() == "" && $('#yourPassword').val() == ""){
+          // alert('Please enter your username and password');
+          UsernameElement.textContent = "Please enter your username";
+          UsernameElement.style.color = "red";
+          UsernameElement.style.display = "block";
+          PasswordElement.textContent = "Please enter your password";
+          PasswordElement.style.color = "red";
+          PasswordElement.style.display = "block";
+          return false;
+        } else {
+          var formData = $('#login input, #login select, #login textarea').serialize();
+        // console.log(formData[0]);
         $.ajax({
             url: 'process/dynamic.php',
             method : 'POST',
@@ -182,6 +202,9 @@
                       
                         window.location.href = 'site/';
                     });;
+                    playNotificationSound();
+
+
                 
                     // Swal.fire({
                     //     icon: 'success',
@@ -223,21 +246,140 @@
                               icon: 'warning',
                               title: data.message
                           });
+                          playLoginSound();
+                         
                 }
             },
             error: function (xhr, status, error) {
-                console.error('Error:', error);
+                console.error(error,status,error);
                 alert('An error occurred while creating the account.');
+
+                playNotificationSoundE();
             }
           
          
         });
+        }
+       
+ 
+      
         
         // alert('Login successful');
         // console.log(formData);
+
+      
     });
 
 
-   
-     
-  </script>
+    $(document).ready(function() {
+        /* from login */
+        const emailInput = document.getElementById("yourEmail");
+        const emailElement = document.getElementById("emailFeedback");
+        const UsernamelInput = document.getElementById("yourUsername");
+        const usernamelElement = document.getElementById("usernameFeedback");
+        /* from register */
+        const usernameInput = document.getElementById('yourUsername');
+        const passwordInput = document.getElementById('yourPassword');
+        const UsernameElementE = document.getElementById("username-feedback");
+        const PasswordElementE = document.getElementById("password-feedback");
+
+        $('#yourEmail').click(function (e) {
+            // Check if the input field is empty
+            if ($(this).val() == "") {
+              // Display the feedback message
+              emailElement.textContent = "Please enter your email address";
+              emailElement.style.color = "red";
+              emailElement.style.display = "block";
+            } else {
+              // Hide the feedback message
+              if(emailElement.style.color == "red"){
+                emailElement.style.color = "red";
+                emailElement.style.display = "none";
+              } else {
+                emailElement.style.display = "block";
+              }
+            
+            }
+        });
+
+        $('#yourUsername').click(function (e) {
+            // Check if the input field is empty
+            if ($(this).val() == "") {
+              // Display the feedback message
+              usernamelElement.textContent = "Please enter your username";
+              usernamelElement.style.color = "red";
+              usernamelElement.style.display = "block";
+            } else {
+              // Hide the feedback message
+              if(usernamelElement.style.color == "red"){
+                usernamelElement.style.color = "red";
+                usernamelElement.style.display = "none";
+              } else {
+                usernamelElement.style.display = "block";
+              }
+            
+            }
+        });
+           
+        /* from register here */         // Attach the onkeypress event listener
+        usernameInput.addEventListener('keypress', function (event) {
+              UsernameElementE.textContent = "Please enter your username";
+              UsernameElementE.style.color = "red";
+              UsernameElementE.style.display = "none";
+              return false;
+        });
+
+        passwordInput.addEventListener('keypress', function (event) {
+              PasswordElementE.textContent = "Please enter your password";
+              PasswordElementE.style.color = "red";
+              PasswordElementE.style.display = "none";
+              return false;
+        });
+        /* end of register trigger here */ 
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      // Add event listener to the form
+      const loginForm = document.getElementById('login');
+
+      if (loginForm) {
+        loginForm.addEventListener('keypress', function (event) {
+          // Check if the Enter key was pressed
+          if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent the default action
+            const loginButton = document.getElementById('doLogin');
+            if (loginButton) {
+              loginButton.click(); // Simulate button click
+            }
+          }
+        });
+      }
+    });
+
+    var audio = new Audio('path/sound/denied.mp3');
+    audio.muted = true;
+    function playLoginSound() {
+      audio.muted = false; // Unmute before playing
+      audio.play().catch(function (error) {
+        // Handle the error
+        // console.error("Failed to play audio: " + error.message);
+      });
+    }
+
+    function playNotificationSound() {
+        var audio = new Audio('path/sound/granted.mp3');
+        audio.play().catch(function(error) {
+            // Handle playback errors
+            console.error('Error playing notification sound: ' + error);
+        });
+    }
+
+    function playNotificationSoundE() {
+        var audio = new Audio('path/sound/error.mp3');
+        audio.play().catch(function(error) {
+            // Handle playback errors
+            console.error('Error playing notification sound: ' + error);
+        });
+    }
+    
+</script>
