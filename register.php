@@ -76,9 +76,26 @@
                         <div class="invalid-feedback"  id="usernameFeedback">Please choose a username.</div>
                     </div>
 
-                    <div class="col-12">
+                    <!-- <div class="col-12 position-relative">
                       <label for="yourPassword" class="form-label">Password</label>
                       <input type="password" name="password" class="form-control" id="yourPassword" required>
+                      <div class="invalid-feedback" id="pFeedback">Please enter your password!</div>
+                    </div> -->
+
+                    <div class="col-12 position-relative">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <div class="input-group">
+                        <input
+                          type="password"
+                          name="password"
+                          class="form-control"
+                          id="yourPassword"
+                          required
+                        />
+                        <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                          <i class="fas fa-eye"></i>
+                        </span>
+                      </div>
                       <div class="invalid-feedback" id="pFeedback">Please enter your password!</div>
                     </div>
 

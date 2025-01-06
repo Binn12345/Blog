@@ -4,13 +4,12 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST');
 header('Access-Control-Allow-Headers: Content-Type');
 
-// Database configuration
+
 $host = '127.0.0.1';
 $username = 'root';
 $password = '';
-$dbname = 'nativeconn';
+$dbname = 'nativeconn1';
 
-// Establish database connection
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
