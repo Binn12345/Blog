@@ -294,7 +294,7 @@
         }
 
         // Check user in the database
-        $query = "SELECT id, username, password FROM users WHERE username = ? OR email = ?";
+        $query = "SELECT * FROM users WHERE username = ? OR email = ?";
         $stmt = $connection->prepare($query);
         $stmt->bind_param('ss', $username, $username);
         $stmt->execute();
@@ -308,6 +308,7 @@
                 // Set session variables
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
+                $_SESSION['usertype'] = $user['usertype'];
 
                 echo json_encode([
                     "status" => 1,
