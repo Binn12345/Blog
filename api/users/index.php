@@ -8,7 +8,7 @@ header('Access-Control-Allow-Headers: Content-Type');
 $host = '127.0.0.1';
 $username = 'root';
 $password = '';
-$dbname = 'nativeconn1';
+$dbname = 'nativeconn';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
