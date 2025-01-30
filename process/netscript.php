@@ -1,5 +1,5 @@
 <script>
-    
+    // alert('')
   $(document).ready(function () {
       const feedbackElement = document.getElementById("usernameFeedback");
       const emailFeedback = document.getElementById("emailFeedback");
