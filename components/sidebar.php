@@ -6,28 +6,28 @@
         <li class="nav-item">
             <a class="nav-link " href="index.html">
                 <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
+                <span style="font-size: smaller !important;">Dashboard</span>
             </a>
         </li><!-- End Dashboard Nav -->
 
-        <li class="nav-item">
+        <li class="nav-item" >
 
             <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>User Management</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-menu-button-wide"></i><span  style="font-size: smaller !important;">User Management</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-circle"></i><span>User Accounts</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">User Accounts</span>
                     </a>
                 </li>
                 <li>
                     <a href="components-alerts.html">
-                        <i class="bi bi-circle"></i><span>Roles and Permission</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Roles and Permission</span>
                     </a>
                 </li>
             </ul>
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+            <!-- <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
@@ -101,32 +101,23 @@
                         <i class="bi bi-circle"></i><span>Tooltips</span>
                     </a>
                 </li>
-            </ul>
+            </ul> -->
         </li><!-- End Components Nav -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-journal-text"></i><span>Forms</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-journal-text"></i><span  style="font-size: smaller !important;">Blog Management</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="forms-elements.html">
-                        <i class="bi bi-circle"></i><span>Form Elements</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Categories and Tags</span>
                     </a>
                 </li>
                 <li>
+                    <!-- inncludes add and pending post -->
                     <a href="forms-layouts.html">
-                        <i class="bi bi-circle"></i><span>Form Layouts</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="forms-editors.html">
-                        <i class="bi bi-circle"></i><span>Form Editors</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="forms-validation.html">
-                        <i class="bi bi-circle"></i><span>Form Validation</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Posts</span>
                     </a>
                 </li>
             </ul>
@@ -134,17 +125,17 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-layout-text-window-reverse"></i><span>Tables</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-layout-text-window-reverse"></i><span  style="font-size: smaller !important;">Comments Moderation</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="tables-general.html">
-                        <i class="bi bi-circle"></i><span>General Tables</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Pending Approval</span>
                     </a>
                 </li>
                 <li>
                     <a href="tables-data.html">
-                        <i class="bi bi-circle"></i><span>Data Tables</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Spam and Reported</span>
                     </a>
                 </li>
             </ul>
@@ -152,22 +143,17 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-bar-chart"></i><span>Charts</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-bar-chart"></i><span  style="font-size: smaller !important;">Media Management</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="charts-chartjs.html">
-                        <i class="bi bi-circle"></i><span>Chart.js</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Upload Media</span>
                     </a>
                 </li>
                 <li>
                     <a href="charts-apexcharts.html">
-                        <i class="bi bi-circle"></i><span>ApexCharts</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="charts-echarts.html">
-                        <i class="bi bi-circle"></i><span>ECharts</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Media Library</span>
                     </a>
                 </li>
             </ul>
@@ -175,77 +161,112 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-gem"></i><span>Icons</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-gem"></i><span  style="font-size: smaller !important;">Site Settings</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
                     <a href="icons-bootstrap.html">
-                        <i class="bi bi-circle"></i><span>Bootstrap Icons</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">General Settings</span>
                     </a>
                 </li>
                 <li>
                     <a href="icons-remix.html">
-                        <i class="bi bi-circle"></i><span>Remix Icons</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Seo Settings</span>
                     </a>
                 </li>
                 <li>
                     <a href="icons-boxicons.html">
-                        <i class="bi bi-circle"></i><span>Boxicons</span>
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Email and Notification</span>
                     </a>
                 </li>
             </ul>
         </li><!-- End Icons Nav -->
 
-        <li class="nav-heading">Pages</li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav2" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-gem"></i><span  style="font-size: smaller !important;">Analytics & Reports</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="icons-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="icons-bootstrap.html">
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">User Engagement</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="icons-remix.html">
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Traffic Reports</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="icons-boxicons.html">
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Post Performance</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Icons Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav3" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-gem"></i><span  style="font-size: smaller !important;">Backup & Security</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="icons-nav3" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="icons-bootstrap.html">
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Create Backup</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="icons-remix.html">
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Restore Backup</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="icons-boxicons.html">
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Security Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Icons Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#icons-nav3" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-gem"></i><span  style="font-size: smaller !important;">Newsletter & Notifications</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="icons-nav3" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                <li>
+                    <a href="icons-bootstrap.html">
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Subscribers</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="icons-remix.html">
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Send Newsletter</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="icons-boxicons.html">
+                        <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">Email History</span>
+                    </a>
+                </li>
+            </ul>
+        </li><!-- End Icons Nav -->
+
+        <li class="nav-heading"  style="font-size: smaller !important;">Social Media Integration</li>
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="users-profile.html">
                 <i class="bi bi-person"></i>
-                <span>Profile</span>
+                <span  style="font-size: smaller !important;">Social Media Links</span>
             </a>
         </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="pages-faq.html">
                 <i class="bi bi-question-circle"></i>
-                <span>F.A.Q</span>
+                <span  style="font-size: smaller !important;">Sharing Options</span>
             </a>
         </li><!-- End F.A.Q Page Nav -->
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-contact.html">
-                <i class="bi bi-envelope"></i>
-                <span>Contact</span>
-            </a>
-        </li><!-- End Contact Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-register.html">
-                <i class="bi bi-card-list"></i>
-                <span>Register</span>
-            </a>
-        </li><!-- End Register Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-login.html">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-            </a>
-        </li><!-- End Login Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-error-404.html">
-                <i class="bi bi-dash-circle"></i>
-                <span>Error 404</span>
-            </a>
-        </li><!-- End Error 404 Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-blank.html">
-                <i class="bi bi-file-earmark"></i>
-                <span>Blank</span>
-            </a>
-        </li><!-- End Blank Page Nav -->
 
     </ul>
 
