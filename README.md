@@ -26,3 +26,61 @@
 - **View Blog Posts**: Read articles  
 - **Search & Filter**: Find posts by category, tag, or keyword  
 - **Share Posts on Social Media**: Facebook, Twitter, etc.  
+
+
+# 📘 Blog System Admin Panel
+---
+
+## 📊 Dashboard
+- Overview
+- Recent Activities
+- Quick Actions
+
+## 👤 User Management
+- All Users
+- Add New User
+- Roles & Permissions
+
+## 📝 Blog Management
+### 📂 Categories & Tags
+- Categories
+- Tags
+### 📰 Posts
+- All Posts
+- Add New Post
+- Pending Posts
+
+## 💬 Comment Moderation
+- All Comments
+- Pending Approval
+- Spam & Reported
+
+## 📁 Media Management
+- Upload Media
+- Media Library
+
+## ⚙️ Site Settings
+- General Settings
+- SEO Settings
+- Email & Notifications
+
+## 📈 Analytics & Reports
+- User Engagement
+- Traffic Reports
+- Post Performance
+
+## 🔒 Backup & Security
+- Create Backup
+- Restore Backup
+- Security Settings
+
+## 📩 Newsletter & Notifications
+- Subscribers
+- Send Newsletter
+- Email History
+
+## 🔗 Social Media Integration
+- Social Media Links
+- Sharing Options
+
+---

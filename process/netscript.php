@@ -272,7 +272,7 @@
             },
             error: function (xhr, status, error) {
                 console.error(error,status,error);
-                alert('An error occurred while creating the account.');
+                alert('An error occurred while login the account.');
 
                 playNotificationSoundE();
             }
