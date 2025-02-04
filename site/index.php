@@ -20,75 +20,100 @@ session_start();
   <!-- End Sidebar-->
 
   <!-- Session Timeout Modal -->
-  <div id="sessionModal" class="modal fade" tabindex="-1">
+  <!-- Session Timeout Modal -->
+  <div id="sessionModal" class="modal fade" tabindex="-1" aria-labelledby="sessionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Session Timeout Warning</h5>
+      <div class="modal-content shadow-lg border-0">
+        <!-- Header -->
+        <div class="modal-header bg-warning text-dark">
+          <h5 class="modal-title fw-bold" id="sessionModalLabel">
+            ⚠️ Your Session is About to Expire
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
-          <p>Your session is about to expire. Do you want to stay logged in?</p>
+
+        <!-- Body -->
+        <div class="modal-body text-center">
+          <p class="mb-3">
+            You have been inactive for a while. For security reasons, your session will automatically log out.
+          </p>
+          <p class="text-muted small">
+            To stay logged in, please click **"Stay Logged In"** within the next **1 minute**.
+            Otherwise, you will be logged out for security purposes.
+          </p>
         </div>
-        <div class="modal-footer">
-          <button id="stayLoggedIn" class="btn btn-success">Stay Logged In</button>
-          <button id="logout" class="btn btn-danger">Log Out</button>
+
+        <!-- Footer -->
+        <div class="modal-footer d-flex justify-content-center">
+          <button id="stayLoggedIn" class="btn btn-success px-4 fw-bold" data-bs-dismiss="modal">
+            ✅ Stay Logged In
+          </button>
+          <a href="../logout.php" class="btn btn-danger px-4 fw-bold">
+            🚪 Log Out
+          </a>
         </div>
       </div>
     </div>
   </div>
 
-  <main id="main" class="main">
 
-    <!-- <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>
-    </div> -->
-
-    <div class="modal fade" id="basicModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Basic Modal</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-bs-dismiss="modal">Stay Logged In</button>
-            <button type="button" class="btn btn-danger">Logout</button>
-          </div>
-        </div>
+  <!-- Log Out Confirmation Modal -->
+<div class="modal fade" id="basicModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-lg border-0">
+      
+      <!-- Header -->
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title fw-bold" id="logoutModalLabel">
+           Confirm Log Out
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-    </div><!-- End Basic Modal-->
 
+      <!-- Body -->
+      <div class="modal-body text-center">
+        <p class="mb-3">
+          Are you sure you want to log out?
+        </p>
+        <p class="text-muted small">
+          Logging out will end your current session, and you will need to log in again to access your account.
+        </p>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer d-flex justify-content-center">
+        <button type="button" class="btn btn-secondary px-4 fw-bold" data-bs-dismiss="modal">
+          ❌ Cancel
+        </button>
+        <a href="../logout.php" class="btn btn-danger px-4 fw-bold">
+          ✅ Yes, Log Out
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+  <!-- <main id="main" class="main">
     <section class="section dashboard">
-      <div class="row">
+      <div class="row"> -->
 
-        <!-- Left side columns -->
-
-        <!-- <?= var_dump('<pre>', $_POST, $_SESSION, $usertype) ?> -->
-
-        <?php if (in_array($user['usertype'], array('0'))) {
-          require_once("admin.php"); ?>
-        <?php } else if (in_array($user['usertype'], array('1'))) {
-          require_once("user.php");
-        } ?>
+  <!-- Left side columns -->
+  <!-- <?= var_dump('<pre>', $_POST, $_SESSION, $usertype) ?> -->
 
 
+  <?php if (in_array($user['usertype'], array('0'))) {
+    require_once("admin.php");
 
-        <?php if (in_array($user['usertype'], array('0')))  require_once("adminrightside.php"); ?>
+  ?>
+  <?php } else if (in_array($user['usertype'], array('1'))) {
+    require_once("user.php");
+  } ?>
 
 
-      </div>
-    </section>
 
-  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <?php if (in_array($user['usertype'], array('0'))) require_once("../components/footer.php") ?>
@@ -99,30 +124,36 @@ session_start();
   <script>
     $(document).ready(function() {
       let inactivityTimer;
-      let isModalShown = false; // Track modal visibility
-      let sessionCheckInterval = setInterval(checkSession, 10000); // Check session every 10 seconds
+      let isModalShown = false; // Track if modal is open
+      let sessionCheckInterval = setInterval(checkSession, 10000); // Check session every 10 sec
+      let autoLogoutTimer; // Timer for auto logout
 
       function checkSession() {
         $.getJSON("../session.php", function(data) {
           if (data.expired) {
             clearInterval(sessionCheckInterval);
-            window.location.href = "../logout.php";
+            window.location.href = "../logout.php"; // Force logout
           }
         });
       }
 
-      // Show session timeout modal (only if not already shown)
+      // Show session timeout modal
       function showModal() {
         if (!isModalShown) {
           $("#sessionModal").modal("show");
-          isModalShown = true; // Prevent multiple modals
+          isModalShown = true;
+
+          // Auto-logout if no response within 60 seconds
+          autoLogoutTimer = setTimeout(function() {
+            window.location.href = "../logout.php";
+          }, 60000); // 1-minute auto logout
         }
       }
 
-      // Reset the inactivity timer (modal should NOT auto-hide)
+      // Reset the inactivity timer (but don't auto-hide modal)
       function resetTimer() {
         clearTimeout(inactivityTimer);
-        inactivityTimer = setTimeout(showModal, 300000); // Show modal after 5 minutes of inactivity
+        inactivityTimer = setTimeout(showModal, 300000); // Show modal after 5 min
       }
 
       // Detect user activity and reset the timer
@@ -147,8 +178,9 @@ session_start();
       $("#stayLoggedIn").click(function() {
         $.get("../session.php", function() {
           $("#sessionModal").modal("hide");
-          isModalShown = false; // Allow modal to show again on next inactivity
-          resetTimer(); // Restart the inactivity timer
+          isModalShown = false;
+          clearTimeout(autoLogoutTimer); // Stop auto-logout
+          resetTimer();
         });
       });
 
@@ -157,7 +189,7 @@ session_start();
         window.location.href = "../logout.php";
       });
 
-      resetTimer();
+      resetTimer(); // Start inactivity timer on page load
 
 
       /* tester script seconds only */
