@@ -215,7 +215,7 @@
             <li>
             <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal"> -->
             <!-- href="../logout.php" -->
-              <a class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#basicModal">
+              <a class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#basicModal" style="cursor: pointer">
                 <i class="bi bi-box-arrow-right"></i>
                 <span>Sign Out</span>
               </a>

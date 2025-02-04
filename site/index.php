@@ -98,75 +98,108 @@ session_start();
 
   <script>
     $(document).ready(function() {
-      let sessionTimeout = 4 * 60 * 1000; // 4 minutes before showing modal
-      let sessionInterval = setInterval(checkSession, 5000); // Check session every 5 sec
+      let inactivityTimer;
+      let isModalShown = false; // Track modal visibility
+      let sessionCheckInterval = setInterval(checkSession, 10000); // Check session every 10 seconds
 
       function checkSession() {
         $.getJSON("../session.php", function(data) {
           if (data.expired) {
-            clearInterval(sessionInterval);
+            clearInterval(sessionCheckInterval);
             window.location.href = "../logout.php";
           }
         });
       }
 
-      // Show modal before session expires
-      setTimeout(function() {
-        $("#sessionModal").modal("show");
-      }, sessionTimeout);
+      // Show session timeout modal (only if not already shown)
+      function showModal() {
+        if (!isModalShown) {
+          $("#sessionModal").modal("show");
+          isModalShown = true; // Prevent multiple modals
+        }
+      }
 
-      // Stay logged in
+      // Reset the inactivity timer (modal should NOT auto-hide)
+      function resetTimer() {
+        clearTimeout(inactivityTimer);
+        inactivityTimer = setTimeout(showModal, 300000); // Show modal after 5 minutes of inactivity
+      }
+
+      // Detect user activity and reset the timer
+      $(document).on("mousemove keypress click", function() {
+        resetTimer();
+      });
+
+      // Handle tab visibility change
+      document.addEventListener("visibilitychange", function() {
+        if (!document.hidden) {
+          $.getJSON("../session.php", function(data) {
+            if (data.expired) {
+              window.location.href = "../logout.php";
+            } else if (isModalShown) {
+              $("#sessionModal").modal("show"); // Keep modal open after returning
+            }
+          });
+        }
+      });
+
+      // "Stay Logged In" Button Click
       $("#stayLoggedIn").click(function() {
         $.get("../session.php", function() {
           $("#sessionModal").modal("hide");
+          isModalShown = false; // Allow modal to show again on next inactivity
+          resetTimer(); // Restart the inactivity timer
         });
       });
 
-      // Log out
+      // "Log Out" Button Click
       $("#logout").click(function() {
         window.location.href = "../logout.php";
       });
 
-      
+      resetTimer();
+
+
       /* tester script seconds only */
-      // let sessionInterval = setInterval(checkSession, 1000); // Check session every 1 second
-      // let modalTimeout = 0; // Track inactivity
+      //   let inactivityTimer;
+      // let sessionCheckInterval = setInterval(checkSession, 1000); // Check session every 1 second
 
       // function checkSession() {
       //     $.getJSON("../session.php", function (data) {
       //         if (data.expired) {
-      //             clearInterval(sessionInterval);
+      //             clearInterval(sessionCheckInterval);
       //             window.location.href = "../logout.php";
       //         }
       //     });
       // }
 
-      // // Detect inactivity (3 seconds)
+      // // Reset the inactivity timer and hide modal
       // function resetTimer() {
-      //     clearTimeout(modalTimeout);
-      //     modalTimeout = setTimeout(function () {
+      //     clearTimeout(inactivityTimer);
+      //     $("#sessionModal").modal("hide");
+      //     inactivityTimer = setTimeout(function () {
       //         $("#sessionModal").modal("show");
       //     }, 3000); // Show modal after 3 seconds of inactivity
       // }
 
+      // // Detect user activity and reset the timer
       // $(document).on("mousemove keypress click", function () {
-      //     resetTimer(); // Reset inactivity timer
+      //     resetTimer();
       // });
 
-      // // Stay Logged In
+      // // "Stay Logged In" Button Click
       // $("#stayLoggedIn").click(function () {
       //     $.get("../session.php", function () {
-      //         $("#sessionModal").modal("hide");
-      //         resetTimer(); // Reset inactivity timer
+      //         resetTimer(); // Restart the inactivity timer
       //     });
       // });
 
-      // // Log Out
+      // // "Log Out" Button Click
       // $("#logout").click(function () {
       //     window.location.href = "../logout.php";
       // });
 
-      // resetTimer(); // Start inactivity timer
+      // resetTimer(); // Start inactivity timer on page load
     });
   </script>
 </body>
