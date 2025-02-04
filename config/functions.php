@@ -75,6 +75,26 @@ function getDbConnection() {
     return $globalDbConnection;
 }
 
+function timeAgo($datetime) {
+    $now = new DateTime();
+    $past = new DateTime($datetime);
+    $diff = $now->diff($past);
+
+    if ($diff->y > 0) {
+        return $diff->y . " years ago";
+    } elseif ($diff->m > 0) {
+        return $diff->m . " months ago";
+    } elseif ($diff->d > 0) {
+        return $diff->d . " days ago";
+    } elseif ($diff->h > 0) {
+        return $diff->h . " hours ago";
+    } elseif ($diff->i > 0) {
+        return $diff->i . " minutes ago";
+    } else {
+        return "Just now";
+    }
+}
+
 
 
 ?>

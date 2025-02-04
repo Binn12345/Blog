@@ -1,3 +1,30 @@
+<?php
+// $timestamp = '2024-02-04 12:00:00'; // Example timestamp from the database
+// $timeAgo = time() - strtotime($timestamp);
+
+// if ($timeAgo < 60) {
+//     echo "$timeAgo seconds ago";
+// } elseif ($timeAgo < 3600) {
+//     echo floor($timeAgo / 60) . " minutes ago";
+// } elseif ($timeAgo < 86400) {
+//     echo floor($timeAgo / 3600) . " hours ago";
+// } else {
+//     echo floor($timeAgo / 86400) . " days ago";
+// }
+
+
+require_once ('../config/functions.php');
+
+
+$tss = date("Y-m-d H:i:s");
+// var_dump('<pre>',$tss );die;
+// echo timeAgo(); // Replace with your timestamp
+
+
+
+
+?>
+
 <div class="mb-5"></div>
 <main>
 
@@ -37,7 +64,7 @@
                                             <div>
 
                                                 <h6 class="mb-0" style="text-transform: capitalize">&nbsp;<?= $user['name']; ?></h6>
-                                                <small class="text-muted">2 hours ago</small>
+                                                <small class="text-muted"><?php echo timeAgo($tss); ?></small>
                                             </div>
                                         </div>
                                         <p class="mt-3">
