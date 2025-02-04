@@ -1,3 +1,4 @@
+
 <main id="main" class="main">
     <section class="section dashboard">
         <div class="row">
@@ -343,7 +344,7 @@
             </div>
 
             <!-- eto ung right side na div -->
-            <?php require_once("adminrightside.php");?>
+            <?php // require_once("adminrightside.php"); ?>
         </div>
     </section>
 </main>

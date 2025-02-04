@@ -17,7 +17,7 @@
             </a>
             <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="components-alerts.html">
+                    <a href="../site/accounts.php">
                         <i class="bi bi-circle"></i><span  style="font-size: smaller !important;">User Accounts</span>
                     </a>
                 </li>

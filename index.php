@@ -2,7 +2,7 @@
 <html lang="en">
 <?php 
 
-  session_start();
+  // session_start();
   require_once('components/head.php'); 
   require_once('config/functions.php'); 
 
@@ -11,7 +11,7 @@
   $originalText = "This is a secret message.";
   $encryptedText = encryptData($originalText, $key);
 
- 
+//  var_dump('<pre>',$_SESSION);die;
 
   if (isset($_SESSION['user_id'])) {
       // Redirect to login if not logged in
@@ -30,6 +30,7 @@
     //             });
          
     //       </script>";
+    
   }
 
 
