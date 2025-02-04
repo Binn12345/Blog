@@ -63,12 +63,12 @@ $tss = date("Y-m-d H:i:s");
                                             <img src="../assets/img/profile-img.jpg" class="rounded-circle me-2" style="width: 40px; height: 40px; object-fit: cover;" alt="User">
                                             <div>
 
-                                                <h6 class="mb-0" style="text-transform: capitalize">&nbsp;<?= $user['name']; ?></h6>
-                                                <small class="text-muted"><?php echo timeAgo($tss); ?></small>
+                                                <h6 class="mb-0" style="text-transform: capitalize; font-weight:bold">&nbsp;<?= $user['name']; ?></h6>
+                                                <small class="text-muted">&nbsp;<?php echo timeAgo($tss); ?></small>
                                             </div>
                                         </div>
                                         <p class="mt-3">
-                                            This is an example post content. The data is dynamically loaded after a short delay to simulate fetching from a server.
+                                            <?=getRandomParagraph()?>
                                         </p>
                                         <div class="rounded bg-light p-3">
                                             <img src="../assets/img/messages-3.jpg" class="img-fluid rounded" alt="Post Image">

@@ -96,5 +96,23 @@ function timeAgo($datetime) {
 }
 
 
+function getRandomParagraphFromAPI() {
+    $apiUrl = "https://loripsum.net/api/1/short/plaintext";
+    return file_get_contents($apiUrl);
+}
+
+function getRandomParagraph() {
+    $paragraphs = [
+        "The quick brown fox jumps over the lazy dog. This is a classic pangram used for testing fonts and keyboards.",
+        "Technology is rapidly evolving, changing the way we interact with the world. Artificial intelligence and automation are playing a major role in shaping the future.",
+        "In the middle of difficulty lies opportunity. Every challenge presents a chance to learn and grow, making resilience an essential trait for success.",
+        "Nature is an endless source of inspiration. The beauty of the mountains, rivers, and forests reminds us of the wonders of the world.",
+        "Reading books opens the door to countless worlds. Each page turns into an adventure, allowing the reader to travel through time and space.","HAHAHAHAHHAHAHAHA so weird"
+    ];
+    
+    return $paragraphs[array_rand($paragraphs)];
+}
+
+
 
 ?>
