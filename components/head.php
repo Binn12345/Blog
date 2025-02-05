@@ -127,6 +127,6 @@ if (!$point) {
 
 <?php } ?>
 
-<?=require_once('modalPrompt.php')?>
-<?=require_once('modalPromptProcess.php')?>
+<?php require_once('modalPrompt.php')?>
+<?php require_once('modalPromptProcess.php')?>
 
