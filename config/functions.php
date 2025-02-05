@@ -76,6 +76,21 @@ function getDbConnection() {
 }
 
 function timeAgo($datetime) {
+
+
+    // $timestamp = '2024-02-04 12:00:00'; // Example timestamp from the database
+// $timeAgo = time() - strtotime($timestamp);
+
+// if ($timeAgo < 60) {
+//     echo "$timeAgo seconds ago";
+// } elseif ($timeAgo < 3600) {
+//     echo floor($timeAgo / 60) . " minutes ago";
+// } elseif ($timeAgo < 86400) {
+//     echo floor($timeAgo / 3600) . " hours ago";
+// } else {
+//     echo floor($timeAgo / 86400) . " days ago";
+// }
+
     $now = new DateTime();
     $past = new DateTime($datetime);
     $diff = $now->diff($past);
@@ -90,6 +105,8 @@ function timeAgo($datetime) {
         return $diff->h . " hours ago";
     } elseif ($diff->i > 0) {
         return $diff->i . " minutes ago";
+    } else if($diff->s < 60){
+        return $diff->s. " seconds ago";
     } else {
         return "Just now";
     }

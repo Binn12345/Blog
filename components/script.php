@@ -7,7 +7,7 @@ if (strpos($requestUri, 'Blog/') === false) $point = 1;
 
 // Convert to boolean
 $point = (bool) $point;
-// var_dump('<pre>',$point);die;
+// var_dump('<pre>',$point,$requestUri);die;
 if (!$point) {
 
 ?>
@@ -50,115 +50,121 @@ if (!$point) {
 
 <script>
     $(document).ready(function() {
-        let inactivityTimer;
-        let isModalShown = false; // Track if modal is open
-        let sessionCheckInterval = setInterval(checkSession, 10000); // Check session every 10 sec
-        let autoLogoutTimer; // Timer for auto logout
 
-        function checkSession() {
-            $.getJSON("../session.php", function(data) {
-                if (data.expired) {
-                    clearInterval(sessionCheckInterval);
-                    window.location.href = "../logout.php"; // Force logout
-                }
-            });
-        }
 
-        // Show session timeout modal
-        function showModal() {
-            if (!isModalShown) {
-                $("#sessionModal").modal("show");
-                isModalShown = true;
+        if ("<?=$point?>") {
+            let inactivityTimer;
+            let isModalShown = false; // Track if modal is open
+            let sessionCheckInterval = setInterval(checkSession, 10000); // Check session every 10 sec
+            let autoLogoutTimer; // Timer for auto logout
 
-                // Auto-logout if no response within 60 seconds
-                autoLogoutTimer = setTimeout(function() {
-                    window.location.href = "../logout.php";
-                }, 60000); // 1-minute auto logout
-            }
-        }
-
-        // Reset the inactivity timer (but don't auto-hide modal)
-        function resetTimer() {
-            clearTimeout(inactivityTimer);
-            inactivityTimer = setTimeout(showModal, 300000); // Show modal after 5 min
-        }
-
-        // Detect user activity and reset the timer
-        $(document).on("mousemove keypress click", function() {
-            resetTimer();
-        });
-
-        // Handle tab visibility change
-        document.addEventListener("visibilitychange", function() {
-            if (!document.hidden) {
+            function checkSession() {
                 $.getJSON("../session.php", function(data) {
                     if (data.expired) {
-                        window.location.href = "../logout.php";
-                    } else if (isModalShown) {
-                        $("#sessionModal").modal("show"); // Keep modal open after returning
+                        clearInterval(sessionCheckInterval);
+                        window.location.href = "../logout.php"; // Force logout
                     }
                 });
             }
-        });
 
-        // "Stay Logged In" Button Click
-        $("#stayLoggedIn").click(function() {
-            $.get("../session.php", function() {
-                $("#sessionModal").modal("hide");
-                isModalShown = false;
-                clearTimeout(autoLogoutTimer); // Stop auto-logout
+            // Show session timeout modal
+            function showModal() {
+                if (!isModalShown) {
+                    $("#sessionModal").modal("show");
+                    isModalShown = true;
+
+                    // Auto-logout if no response within 60 seconds
+                    autoLogoutTimer = setTimeout(function() {
+                        window.location.href = "../logout.php";
+                    }, 60000); // 1-minute auto logout
+                    // }, 30000); // 30sec auto logout
+                }
+            }
+
+            // Reset the inactivity timer (but don't auto-hide modal)
+            function resetTimer() {
+                clearTimeout(inactivityTimer);
+                inactivityTimer = setTimeout(showModal, 300000); // Show modal after 5 min
+            }
+
+            // Detect user activity and reset the timer
+            $(document).on("mousemove keypress click", function() {
                 resetTimer();
             });
-        });
 
-        // "Log Out" Button Click
-        $("#logout").click(function() {
-            window.location.href = "../logout.php";
-        });
+            // Handle tab visibility change
+            document.addEventListener("visibilitychange", function() {
+                if (!document.hidden) {
+                    $.getJSON("../session.php", function(data) {
+                        if (data.expired) {
+                            window.location.href = "../logout.php";
+                        } else if (isModalShown) {
+                            $("#sessionModal").modal("show"); // Keep modal open after returning
+                        }
+                    });
+                }
+            });
 
-        resetTimer(); // Start inactivity timer on page load
+            // "Stay Logged In" Button Click
+            $("#stayLoggedIn").click(function() {
+                $.get("../session.php", function() {
+                    $("#sessionModal").modal("hide");
+                    isModalShown = false;
+                    clearTimeout(autoLogoutTimer); // Stop auto-logout
+                    resetTimer();
+                });
+            });
+
+            // "Log Out" Button Click
+            $("#logout").click(function() {
+                window.location.href = "../logout.php";
+            });
+
+            resetTimer(); // Start inactivity timer on page load
 
 
-        // /* tester script seconds only */
-        // let inactivityTimer;
-        // let sessionCheckInterval = setInterval(checkSession, 10000); // Check session every 10 seconds
+            // /* tester script seconds only */
+            // let inactivityTimer;
+            // let sessionCheckInterval = setInterval(checkSession, 10000); // Check session every 10 seconds
 
-        // function checkSession() {
-        //     $.getJSON("../session.php", function (data) {
-        //         if (data.expired) {
-        //             clearInterval(sessionCheckInterval);
-        //             window.location.href = "../logout.php";
-        //         }
-        //     });
-        // }
+            // function checkSession() {
+            //     $.getJSON("../session.php", function (data) {
+            //         if (data.expired) {
+            //             clearInterval(sessionCheckInterval);
+            //             window.location.href = "../logout.php";
+            //         }
+            //     });
+            // }
 
-        // // Reset the inactivity timer and hide modal
-        // function resetTimer() {
-        //     clearTimeout(inactivityTimer);
-        //     $("#sessionModal").modal("hide");
-        //     inactivityTimer = setTimeout(function () {
-        //         $("#sessionModal").modal("show");
-        //     }, 300000); // Show modal after 5 minutes of inactivity (300,000ms)
-        // }
+            // // Reset the inactivity timer and hide modal
+            // function resetTimer() {
+            //     clearTimeout(inactivityTimer);
+            //     $("#sessionModal").modal("hide");
+            //     inactivityTimer = setTimeout(function () {
+            //         $("#sessionModal").modal("show");
+            //     }, 300000); // Show modal after 5 minutes of inactivity (300,000ms)
+            // }
 
-        // // Detect user activity and reset the timer
-        // $(document).on("mousemove keypress click", function () {
-        //     resetTimer();
-        // });
+            // // Detect user activity and reset the timer
+            // $(document).on("mousemove keypress click", function () {
+            //     resetTimer();
+            // });
 
-        // // "Stay Logged In" Button Click
-        // $("#stayLoggedIn").click(function () {
-        //     $.get("../session.php", function () {
-        //         resetTimer(); // Restart the inactivity timer
-        //     });
-        // });
+            // // "Stay Logged In" Button Click
+            // $("#stayLoggedIn").click(function () {
+            //     $.get("../session.php", function () {
+            //         resetTimer(); // Restart the inactivity timer
+            //     });
+            // });
 
-        // // "Log Out" Button Click
-        // $("#logout").click(function () {
-        //     window.location.href = "../logout.php";
-        // });
+            // // "Log Out" Button Click
+            // $("#logout").click(function () {
+            //     window.location.href = "../logout.php";
+            // });
 
-        // resetTimer(); // Start inactivity timer on page load
+            // resetTimer(); // Start inactivity timer on page load
+        }
+
     });
 
     $(document).ready(function() {
@@ -169,4 +175,60 @@ if (!$point) {
         document.getElementById('loadingSkeleton').classList.add('d-none'); // Hide Skeleton Loader
         document.getElementById('postContent').classList.remove('d-none'); // Show Actual Post Content
     }, 2000);
+
+    // Example array of image URLs (replace with dynamic values from your backend)
+    const images = [
+        "../assets/img/test.jpg",
+        "../assets/img/profile-img.jpg",
+        "../assets/img/messages-3.jpg",
+        "../assets/img/messages-3.jpg",
+        "../assets/img/profile-img.jpg",
+        "../assets/img/profile-img.jpg",
+        "../assets/img/profile-img.jpg",
+        "../assets/img/profile-img.jpg",
+        "../assets/img/profile-img.jpg",
+    ];
+
+    const container = document.getElementById("imageContainer");
+
+    let html = "";
+    if (images.length === 1) {
+        html += `<img src="${images[0]}" class="img-fluid rounded w-100" style="max-height: 500px; object-fit: cover;">`;
+    } else if (images.length === 2) {
+        html += `<div class="row g-2">`;
+        images.forEach(img => {
+            html += `<div class="col-6">
+                        <img src="${img}" class="img-fluid rounded w-100" style="max-height: 300px; object-fit: cover;">
+                     </div>`;
+        });
+        html += `</div>`;
+    } else if (images.length === 3) {
+        html += `<div class="row g-2">
+                    <div class="col-12">
+                        <img src="${images[0]}" class="img-fluid rounded w-100" style="max-height: 400px; object-fit: cover;">
+                    </div>
+                    <div class="col-6">
+                        <img src="${images[1]}" class="img-fluid rounded w-100" style="max-height: 300px; object-fit: cover;">
+                    </div>
+                    <div class="col-6">
+                        <img src="${images[2]}" class="img-fluid rounded w-100" style="max-height: 300px; object-fit: cover;">
+                    </div>
+                 </div>`;
+    } else {
+        html += `<div class="row g-2">`;
+        images.slice(0, 3).forEach(img => {
+            html += `<div class="col-6">
+                        <img src="${img}" class="img-fluid rounded w-100" style="max-height: 250px; object-fit: cover;">
+                     </div>`;
+        });
+        if (images.length > 4) {
+            html += `<div class="col-6 position-relative">
+                        <img src="${images[4]}" class="img-fluid rounded w-100" style="max-height: 250px; object-fit: cover; filter: brightness(70%);">
+                        <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-4">+${images.length - 4}</div>
+                     </div>`;
+        }
+        html += `</div>`;
+    }
+
+    container.innerHTML = html;
 </script>

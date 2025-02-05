@@ -1,27 +1,5 @@
 <?php
-// $timestamp = '2024-02-04 12:00:00'; // Example timestamp from the database
-// $timeAgo = time() - strtotime($timestamp);
-
-// if ($timeAgo < 60) {
-//     echo "$timeAgo seconds ago";
-// } elseif ($timeAgo < 3600) {
-//     echo floor($timeAgo / 60) . " minutes ago";
-// } elseif ($timeAgo < 86400) {
-//     echo floor($timeAgo / 3600) . " hours ago";
-// } else {
-//     echo floor($timeAgo / 86400) . " days ago";
-// }
-
-
-require_once ('../config/functions.php');
-
-
-$tss = date("Y-m-d H:i:s");
-// var_dump('<pre>',$tss );die;
-// echo timeAgo(); // Replace with your timestamp
-
-
-
+require_once('../config/functions.php');
 
 ?>
 
@@ -33,18 +11,38 @@ $tss = date("Y-m-d H:i:s");
         <section class="section dashboard">
 
             <div class="row">
-                <div class="col-lg-2"></div>
-                <!-- Left side columns -->
-                <div class="col-lg-8">
+
+                <div class="col-lg-3"></div>
+                <!-- center columns -->
+                <div class="col-lg-6">
                     <div class="row">
                         <!-- Sales Card -->
                         <!-- Newsfeed Post Card -->
-
                         <div class="col-12 mt-4">
-                           <br>
+
+                            <div class="card shadow-sm border-0 mb-5">
+                                <br>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center">
+                                        <img src="../assets/img/profile-img.jpg" class="rounded-circle me-2 border" style="width: 50px; height: 50px; object-fit: cover;" alt="User">
+                                        <textarea class="form-control border-0" id="postInput" rows="2" placeholder="What's on your mind, <?= $user['name']; ?>?" style="resize: none;" readonly></textarea>
+                                    </div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between px-2">
+                                        <button class="btn btn-light text-primary fw-semibold fs-6"><i class="bi bi-camera-video-fill me-1"></i> Live Video</button>
+                                        <button class="btn btn-light text-success fw-semibold fs-6"><i class="bi bi-images me-1"></i> Photo/Video</button>
+                                        <button class="btn btn-light text-warning fw-semibold fs-6"><i class="bi bi-emoji-smile me-1"></i> Feeling/Activity</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- <hr> -->
+                        <div class="col-lg-12">
+                            <br>
                             <div class="card shadow-sm">
                                 <div class="card-body">
-                                <br> 
+
                                     <!-- Skeleton Loader (Before Data is Loaded) -->
                                     <div id="loadingSkeleton">
                                         <div class="d-flex align-items-center">
@@ -64,40 +62,41 @@ $tss = date("Y-m-d H:i:s");
                                             <div>
 
                                                 <h6 class="mb-0" style="text-transform: capitalize; font-weight:bold">&nbsp;<?= $user['name']; ?></h6>
-                                                <small class="text-muted">&nbsp;<?php echo timeAgo($tss); ?></small>
+                                                <small class="text-muted">&nbsp;<?php echo timeAgo(date("Y-m-d H:i:s")); ?></small>
+
                                             </div>
                                         </div>
                                         <p class="mt-3">
-                                            <?=getRandomParagraph()?>
+                                            <?= getRandomParagraph() ?>
                                         </p>
                                         <div class="rounded bg-light p-3">
-                                            <img src="../assets/img/messages-3.jpg" class="img-fluid rounded" alt="Post Image">
-                                        </div>
-                                        <div class="d-flex justify-content-between mt-3">
-                                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-hand-thumbs-up"></i> Like</button>
-                                            <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-chat-dots"></i> Comment</button>
-                                            <button class="btn btn-sm btn-outline-success"><i class="bi bi-share"></i> Share</button>
+                                            <div class="row g-2">
+                                                <div class="col-12" id="imageContainer">
+                                                    <!-- Images will be added dynamically here -->
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="d-flex justify-content-between px-2">
+                                                <button class="btn btn-light text-primary fw-semibold fs-6"><i class="bi bi-hand-thumbs-up me-1"></i> Like</button>
+                                                <button class="btn btn-light text-success fw-semibold fs-6"><i class="bi bi-chat-dots me-1"></i> Comment</button>
+                                                <button class="btn btn-light text-warning fw-semibold fs-6"><i class="bi bi-share me-1"></i> Share</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- End Newsfeed Post Card -->
+                            <!-- End Sales Card -->
                         </div>
-                        <!-- End Newsfeed Post Card -->
-                        <!-- End Sales Card -->
                     </div>
-                </div>
-
-                <!-- <div class="col-lg-8">
+                    <!-- <div class="col-lg-8">
                     <div class="row">
                         
                     </div>
                 </div> -->
-
-
-
-                <!-- End Left side columns -->
-                <div class="col-lg-2"></div>
-            </div>
+                    <!-- End center columns -->
+                    <div class="col-lg-3"></div>
+                </div>
         </section>
     </div>
 
