@@ -25,7 +25,7 @@ require_once('../config/functions.php');
                                 <div class="card-body">
                                     <div class="d-flex align-items-center">
                                         <img src="../assets/img/profile-img.jpg" class="rounded-circle me-2 border" style="width: 50px; height: 50px; object-fit: cover;" alt="User">
-                                        <textarea class="form-control border-0" id="postInput" rows="2" placeholder="What's on your mind, <?= $user['name']; ?>?" style="resize: none;" readonly></textarea>
+                                        <textarea class="form-control border-0" id="postInput" data-bs-toggle="modal" data-bs-target="#largeModal" rows="2" placeholder="What's on your mind, <?= $user['name']; ?>?" style="resize: none;" readonly></textarea>
                                     </div>
                                     <hr>
                                     <div class="d-flex justify-content-between px-2">
