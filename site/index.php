@@ -9,6 +9,8 @@ session_start();
 
 <?php require_once("../components/head.php") ?>
 
+<!-- <body class="<?php echo ($_SERVER['REQUEST_URI'] === '/Blog/site/profile.php' || strpos($_SERVER['REQUEST_URI'], 'profile.php') !== false) ? 'toggle-sidebar' : ''; ?>"> -->
+
 <body>
 
   <!-- ======= Header ======= -->

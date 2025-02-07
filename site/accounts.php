@@ -58,6 +58,8 @@ if ($user == '1') {
 
 
     
+
+    
     <?php require_once("../components/script.php") ?>
 </body>
 

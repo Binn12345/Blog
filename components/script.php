@@ -52,7 +52,7 @@ if (!$point) {
     $(document).ready(function() {
 
 
-        if ("<?=$point?>") {
+        if ("<?= $point ?>") {
             let inactivityTimer;
             let isModalShown = false; // Track if modal is open
             let sessionCheckInterval = setInterval(checkSession, 10000); // Check session every 10 sec
@@ -76,7 +76,7 @@ if (!$point) {
                     // Auto-logout if no response within 60 seconds
                     autoLogoutTimer = setTimeout(function() {
                         window.location.href = "../logout.php";
-                    }, 60000); // 1-minute auto logout
+                    }, 30000); // 1-minute auto logout
                     // }, 30000); // 30sec auto logout
                 }
             }
@@ -172,8 +172,27 @@ if (!$point) {
     });
 
     setTimeout(() => {
-        document.getElementById('loadingSkeleton').classList.add('d-none'); // Hide Skeleton Loader
-        document.getElementById('postContent').classList.remove('d-none'); // Show Actual Post Content
+        let loadingSkeleton = document.getElementById('loadingSkeleton');
+        let postContent = document.getElementById('postContent');
+
+        if (!loadingSkeleton) {
+            // admin side
+        } else {
+            loadingSkeleton.classList.add('d-none');
+            // console.error("Element with ID 'loadingSkeleton' not found!");
+        }
+
+        if (!postContent) {
+                // admin side
+             // Show Actual Post Content
+        } else {
+            postContent.classList.remove('d-none');
+            // console.error("Element with ID 'postContent' not found!");
+        }
+
+
+        // document.getElementById('loadingSkeleton').classList.add('d-none'); // Hide Skeleton Loader
+        // document.getElementById('postContent').classList.remove('d-none'); // Show Actual Post Content
     }, 2000);
 
     // Example array of image URLs (replace with dynamic values from your backend)
@@ -191,19 +210,22 @@ if (!$point) {
 
     const container = document.getElementById("imageContainer");
 
-    let html = "";
-    if (images.length === 1) {
-        html += `<img src="${images[0]}" class="img-fluid rounded w-100" style="max-height: 500px; object-fit: cover;">`;
-    } else if (images.length === 2) {
-        html += `<div class="row g-2">`;
-        images.forEach(img => {
-            html += `<div class="col-6">
+    if (!container) {
+            /* admin side */
+    } else {
+        let html = "";
+        if (images.length === 1) {
+            html += `<img src="${images[0]}" class="img-fluid rounded w-100" style="max-height: 500px; object-fit: cover;">`;
+        } else if (images.length === 2) {
+            html += `<div class="row g-2">`;
+            images.forEach(img => {
+                html += `<div class="col-6">
                         <img src="${img}" class="img-fluid rounded w-100" style="max-height: 300px; object-fit: cover;">
                      </div>`;
-        });
-        html += `</div>`;
-    } else if (images.length === 3) {
-        html += `<div class="row g-2">
+            });
+            html += `</div>`;
+        } else if (images.length === 3) {
+            html += `<div class="row g-2">
                     <div class="col-12">
                         <img src="${images[0]}" class="img-fluid rounded w-100" style="max-height: 400px; object-fit: cover;">
                     </div>
@@ -214,21 +236,34 @@ if (!$point) {
                         <img src="${images[2]}" class="img-fluid rounded w-100" style="max-height: 300px; object-fit: cover;">
                     </div>
                  </div>`;
-    } else {
-        html += `<div class="row g-2">`;
-        images.slice(0, 3).forEach(img => {
-            html += `<div class="col-6">
+        } else {
+            html += `<div class="row g-2">`;
+            images.slice(0, 3).forEach(img => {
+                html += `<div class="col-6">
                         <img src="${img}" class="img-fluid rounded w-100" style="max-height: 250px; object-fit: cover;">
                      </div>`;
-        });
-        if (images.length > 4) {
-            html += `<div class="col-6 position-relative">
+            });
+            if (images.length > 4) {
+                html += `<div class="col-6 position-relative">
                         <img src="${images[4]}" class="img-fluid rounded w-100" style="max-height: 250px; object-fit: cover; filter: brightness(70%);">
                         <div class="position-absolute top-50 start-50 translate-middle text-white fw-bold fs-4">+${images.length - 4}</div>
                      </div>`;
+            }
+            html += `</div>`;
         }
-        html += `</div>`;
+
+        container.innerHTML = html;
     }
 
-    container.innerHTML = html;
+    // alert("<?php echo ($_SERVER['REQUEST_URI'] === '/Blog/site/profile.php' || strpos($_SERVER['REQUEST_URI'], 'profile.php') !== false) ? 'true' : 'false'; ?>");
+    /* SERVER SIDE */
+    document.addEventListener("DOMContentLoaded", function () {
+        if (<?php echo ($_SERVER['REQUEST_URI'] === '/Blog/site/profile.php' || strpos($_SERVER['REQUEST_URI'], 'profile.php') !== false) ? 'true' : 'false'; ?>) {
+            document.body.classList.add("toggle-sidebar");
+        }
+    });
+</script>
+
+<script>
+
 </script>

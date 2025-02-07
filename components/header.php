@@ -1,7 +1,4 @@
- <?php
-  // var_dump('<pre>',$_SESSION);
 
-  ?>
 
  <!-- ======= Header ======= -->
  <header id="header" class="header fixed-top d-flex align-items-center">
@@ -182,18 +179,18 @@
          </a><!-- End Profile Iamge Icon -->
 
          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-           <li class="dropdown-header">
+           <!-- <li class="dropdown-header">
              <h6><?= $user['name'] ?></h6>
-             <span>Web Designer</span>
-           </li>
-           <li>
+             <span style="font-size: smaller !important;">Web Designer</span>
+           </li> -->
+           <!-- <li>
              <hr class="dropdown-divider">
-           </li>
+           </li> -->
 
            <li>
-             <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+             <a class="dropdown-item d-flex align-items-center" href="profile.php" >
                <i class="bi bi-person"></i>
-               <span>My Profile</span>
+               <span style="font-size: smaller !important;">My Profile</span>
              </a>
            </li>
            <li>
@@ -203,7 +200,7 @@
            <li>
              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                <i class="bi bi-gear"></i>
-               <span>Account Settings</span>
+               <span style="font-size: smaller !important;">Account Settings</span>
              </a>
            </li>
            <li>
@@ -213,7 +210,7 @@
            <li>
              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
                <i class="bi bi-question-circle"></i>
-               <span>Need Help?</span>
+               <span style="font-size: smaller !important;">Need Help?</span>
              </a>
            </li>
            <li>
@@ -225,7 +222,7 @@
              <!-- href="../logout.php" -->
              <a class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#basicModal" style="cursor: pointer">
                <i class="bi bi-box-arrow-right"></i>
-               <span>Sign Out</span>
+               <span style="font-size: smaller !important;">Sign Out</span>
              </a>
            </li>
 

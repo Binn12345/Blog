@@ -41,8 +41,7 @@
 
     function tosave($n,$e,$u,$p,$t) {
         
-
-        $type = $type ?? '0';
+        $type = $type ?? '1';
         $connection = getDbConnection(); // Get the global DB connection
         // Hash the password with bcrypt
         $hashedPassword = password_hash($p, PASSWORD_BCRYPT);

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<?php 
-  session_start();  
-  require_once("components/head.php");
+<?php
+session_start();
+require_once("components/head.php");
 
 
+// var_dump('<p')
 
+if (isset($_SESSION['user_id'])) {
+  // Redirect to login if  logged in
 
-  if (isset($_SESSION['user_id'])) {
-    // Redirect to login if  logged in
-
-    header('Location: site/');
-    exit;
-  }
+  header('Location: site/');
+  exit;
+}
 
 ?>
 <style>
@@ -23,8 +23,8 @@
     font-size: .875em;
     color: var(--bs-form-invalid-color);
   } */
-
 </style>
+
 <body>
 
   <main>
@@ -33,8 +33,13 @@
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
+            <!-- Image Column -->
+            <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center">
+              <img src="assets/img/favicon.png" alt="Sample" class="img-fluid rounded">
+            </div>
+            <!-- Form Column -->
+            <div class="col-lg-6 col-md-8 d-flex flex-column align-items-center justify-content-center">
               <div class="d-flex justify-content-center py-4">
                 <a href="index.html" class="logo d-flex align-items-center w-auto">
                   <!-- <img src="assets/img/logo.png" alt=""> -->
@@ -43,55 +48,39 @@
               </div><!-- End Logo -->
 
               <div class="card mb-3">
-
                 <div class="card-body">
-
                   <div class="pt-4 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                     <p class="text-center small">Enter your personal details to create account</p>
                   </div>
 
                   <div class="row g-3" id='serial'>
-                 
                     <div class="col-12">
                       <input type="hidden" name="hjob" value="tosave" />
                       <label for="yourName" class="form-label">Name</label>
                       <input type="text" name="name" class="form-control" id="yourName" required>
                       <div class="invalid-feedback" id="nameFeedback">Please, enter your name!</div>
                     </div>
-                    <!-- checkUsername() 'key','EmailValue','UserVal' -->
+
                     <div class="col-12">
                       <label for="yourEmail" class="form-label">Email</label>
                       <div class="input-group has-validation">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
+                        <span class="input-group-text">@</span>
                         <input type="email" name="email" class="form-control" id="yourEmail" oninput="checkUserEmailVal('email',this.value)" required>
-                        <div class="invalid-feedback" id="emailFeedback">Please enter a valid Email adddress!</div>
+                        <div class="invalid-feedback" id="emailFeedback">Please enter a valid Email address!</div>
                       </div>
                     </div>
 
                     <div class="col-12">
                       <label for="yourUsernameR" class="form-label">Username</label>
-                        <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-                        <input type="text" name="username" class="form-control" id="yourUsernameR" oninput="checkUserEmailVal('username',this.value)" required>
-                        <div class="invalid-feedback"  id="usernameFeedback">Please choose a username.</div>
+                      <input type="text" name="username" class="form-control" id="yourUsernameR" oninput="checkUserEmailVal('username',this.value)" required>
+                      <div class="invalid-feedback" id="usernameFeedback">Please choose a username.</div>
                     </div>
-
-                    <!-- <div class="col-12 position-relative">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback" id="pFeedback">Please enter your password!</div>
-                    </div> -->
 
                     <div class="col-12 position-relative">
                       <label for="yourPassword" class="form-label">Password</label>
                       <div class="input-group">
-                        <input
-                          type="password"
-                          name="password"
-                          class="form-control"
-                          id="yourPassword"
-                          required
-                        />
+                        <input type="password" name="password" class="form-control" id="yourPassword" required />
                         <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
                           <i class="fas fa-eye"></i>
                         </span>
@@ -117,12 +106,14 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div><!-- End Card -->
             </div>
+
           </div>
         </div>
-
       </section>
+
+
 
     </div>
   </main><!-- End #main -->
