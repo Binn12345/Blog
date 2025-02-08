@@ -12,28 +12,19 @@ require_once('../config/functions.php');
 
             <div class="row">
 
-                <div class="col-lg-3"></div>
+                <div class="col-lg-3"></div>]
                 <!-- center columns -->
                 <div class="col-lg-6">
                     <div class="row">
                         <!-- Sales Card -->
                         <!-- Newsfeed Post Card -->
-                        <div class="col-12 mt-4">
+                        <div class="col-12 mt-5">
 
                             <div class="card shadow-sm border-0 mb-5">
                                 <br>
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center">
-                                        <img src="../assets/img/profile-img.jpg" class="rounded-circle me-2 border" style="width: 50px; height: 50px; object-fit: cover;" alt="User">
-                                        <textarea class="form-control border-0" id="postInput" data-bs-toggle="modal" data-bs-target="#largeModal" rows="2" placeholder="What's on your mind, <?= $user['name']; ?>?" style="resize: none;" readonly></textarea>
-                                    </div>
-                                    <hr>
-                                    <div class="d-flex justify-content-between px-2">
-                                        <button class="btn btn-light text-primary fw-semibold fs-6"><i class="bi bi-camera-video-fill me-1"></i> Live Video</button>
-                                        <button class="btn btn-light text-success fw-semibold fs-6"><i class="bi bi-images me-1"></i> Photo/Video</button>
-                                        <button class="btn btn-light text-warning fw-semibold fs-6"><i class="bi bi-emoji-smile me-1"></i> Feeling/Activity</button>
-                                    </div>
-                                </div>
+                                <!-- <h2>Device Type: <?= $deviceType; ?></h2>
+                                <h3>Detecting Screen Size...</h3> -->
+                                <?=canMobileOrDesktop($deviceType,$user['name'])?>
                             </div>
 
                         </div>

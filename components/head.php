@@ -1,4 +1,11 @@
 <?php
+  require_once dirname(__FILE__) . "/../config/functions.php";
+
+
+
+  
+ $deviceType = isMobile() ? "Mobile" : "Desktop";
+
 
 $point = 0;
 $requestUri = $_SERVER['REQUEST_URI'];
@@ -16,7 +23,7 @@ if (!$point) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Blog</title>
+    <title>FaceBlog</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -75,7 +82,7 @@ if (!$point) {
     exit;
   }
 
-  require_once '../config/functions.php';
+ 
 
   $query = "SELECT * FROM users WHERE username = ?";
   $stmt = getDbConnection()->prepare($query);
@@ -121,7 +128,12 @@ if (!$point) {
 
 <?php } ?>
 
-<?php require_once('modalPrompt.php')?>
-<?php require_once('modalPromptProcess.php')?>
 
+<?php 
+  // var_dump(count($_SESSION));
+
+if(count($_SESSION) != 1) { ?>
+  <?php require_once('modalPrompt.php')?>
+  <?php require_once('modalPromptProcess.php')?>
+<?php } ?>
 <!-- git s -->

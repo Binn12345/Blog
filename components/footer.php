@@ -1,7 +1,7 @@
 <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
         <div class="copyright">
-        &copy;<?=date('Y')?>&nbsp;Copyright <strong><span>Blog</span></strong>. All Rights Reserved
+        &copy;<?=date('Y')?>&nbsp;Copyright <strong><span>FaceBlog</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
         <!-- All the links in the footer should remain intact. -->

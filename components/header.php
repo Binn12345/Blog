@@ -6,7 +6,7 @@
    <div class="d-flex align-items-center justify-content-between">
      <a href="../site/" class="logo d-flex align-items-center">
        <img src="../assets/img/logo.png" alt="">
-       <span class="d-none d-lg-block">Blog</span>
+       <span class="d-none d-lg-block">FBlog</span>
      </a>
 
      <?php if ($_SESSION['usertype'] != '1') { ?>

@@ -7,7 +7,7 @@ if (strpos($requestUri, 'Blog/') === false) $point = 1;
 
 // Convert to boolean
 $point = (bool) $point;
-// var_dump('<pre>',$point,$requestUri);die;
+// var_dump('<pre>',$point,$requestUri,$user['username']);die;
 if (!$point) {
 
 ?>
@@ -76,7 +76,7 @@ if (!$point) {
                     // Auto-logout if no response within 60 seconds
                     autoLogoutTimer = setTimeout(function() {
                         window.location.href = "../logout.php";
-                    }, 30000); // 1-minute auto logout
+                    }, 60000); // 1-minute auto logout
                     // }, 30000); // 30sec auto logout
                 }
             }
@@ -259,8 +259,47 @@ if (!$point) {
     /* SERVER SIDE */
     document.addEventListener("DOMContentLoaded", function () {
         if (<?php echo ($_SERVER['REQUEST_URI'] === '/Blog/site/profile.php' || strpos($_SERVER['REQUEST_URI'], 'profile.php') !== false) ? 'true' : 'false'; ?>) {
-            document.body.classList.add("toggle-sidebar");
+            // alert(<?php echo ($deviceType == 'Mobile')?>);
+            if("<?php echo ($deviceType != 'Mobile')?>") {
+                document.body.classList.add("toggle-sidebar");
+            }
         }
+    });
+
+
+    if("<?php echo $point?>"){
+        function sendScreenSize() {
+            var width = window.innerWidth;
+            var height = window.innerHeight;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "screen-size.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("width=" + width + "&height=" + height);
+        }
+
+        window.onload = sendScreenSize;
+    }
+   
+
+
+    $('#createPOST').on('click', function(e) {
+        e.preventDefault();
+        var form = $('#createPostForm').serialize();
+        console.log(form);
+        $.post('../process/dynamic.php', form, function(response) {
+            // console.log(response);
+            if (response.success) {
+                alert('Post created successfully!');
+                window.location.href = '../admin/posts.php';
+            } else {
+                alert('Error creating post:'+ response.message);
+            }
+        });
+        // $.ajax({
+
+
+        // });
     });
 </script>
 
