@@ -22,7 +22,7 @@ session_start();
   }
 
   /* Cover Photo */
-  .cover-photo {
+  .cover-photos {
     width: 100%;
     height: 200px;
     /* Adjust height like Facebook */
@@ -31,7 +31,7 @@ session_start();
     object-fit: cover;
   }
 
-  .cover-photo img {
+  .cover-photos img {
     max-width: auto;
     height: 100%;
     object-fit: cover;
@@ -145,8 +145,14 @@ session_start();
     <button class="edit-cover">Edit Cover</button>
 </div> -->
 
-              <div class="cover-photo">
-                <img src="../assets/img/news-1.jpg" alt="Cover Photo" id="coverPhoto">
+              <div class="cover-photo" style="width: 100%;
+                      height: 200px; /* Adjust height like Facebook */
+                      position: relative;
+                      background: #ddd;
+                      background-image: url('../assets/img/news-1.jpg');
+                      background-size: cover;
+                      background-position: center;">
+                <!-- <img src="../assets/img/news-1.jpg" alt="Cover Photo" id="coverPhoto"> -->
                 <!-- <button class="edit-cover">
         <i class="bi bi-camera"></i> Edit Cover Photo
     </button> -->
@@ -183,10 +189,18 @@ session_start();
           </div>
 
 
+          <?php
+            //
 
-          <div class="col-xl-8">
+            $css="";
+            if($deviceType=="Mobile") $css="mt-4";
+            // var_dump('<pre>',$css);die;
+            
+          ?>
+          <div class="col-xl-8 <?php echo $css;?>">
 
-            <div class="card">
+            <div class="card" style="border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
               <div class="card-body pt-3">
                 <!-- Bordered Tabs -->
                 <ul class="nav nav-tabs nav-tabs-bordered">
