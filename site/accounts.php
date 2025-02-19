@@ -19,6 +19,8 @@ if ($user == '1') {
     exit;
 }
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -90,41 +92,8 @@ if ($user == '1') {
                                     </div>
                                     <div class=""></div>
                                     <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable. Check for <a href="https://fiduswriter.github.io/simple-datatables/demos/" target="_blank">more examples</a>.</p> -->
-
                                     <!-- Table with stripped rows -->
-                                    <table class="table datatable">
-                                        <thead>
-                                            <tr>
-                                                <th>Fullname</th>
-
-                                                <th>Usertype</th>
-                                                <th>Permission</th>
-                                                <!-- <th data-type="date" data-format="YYYY/DD/MM">Start Date</th> -->
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Unity Pugh</td>
-
-                                                <td>Admin</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Theodore Duran</td>
-                                                <td>Admin</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Kylie Bishop</td>
-                                                <td>User</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                    <?=dynamicdataTable(true,'useraccount')?>
                                     <!-- End Table with stripped rows -->
 
                                 </div>

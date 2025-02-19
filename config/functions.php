@@ -115,7 +115,6 @@ function timeAgo($datetime)
     } else {
         return "Just now";
     }
-    
 }
 
 
@@ -178,4 +177,84 @@ function canMobileOrDesktop($md, $user)
     }
 
     return $layout;
+}
+
+function dynamicdataTable($isModalType,$subMod)
+{
+
+    if ($isModalType) {
+        if(in_array($subMod,'useraccount')) {
+            $table = "<table class='table datatable'>
+            <thead>
+                <tr>
+                    <th>Fullname</th>
+    
+                    <th>Usertype</th>
+                    <th>Permission</th>
+                
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Unity Pugh</td>
+    
+                    <td>Admin</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Theodore Duran</td>
+                    <td>Admin</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Kylie Bishop</td>
+                    <td>User</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>";
+        }
+       
+    } else {
+        $table = "<table class='table datatable'>
+        <thead>
+            <tr>
+                <th>Fullname</th>
+
+                <th>Usertype</th>
+                <th>Permission</th>
+            
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Unity Pugh</td>
+
+                <td>Admin</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Theodore Duran</td>
+                <td>Admin</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Kylie Bishop</td>
+                <td>User</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+        </table>";
+    }
+
+
+    return $table;
 }
