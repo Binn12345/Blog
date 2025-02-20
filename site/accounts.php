@@ -21,7 +21,7 @@ if ($user == '1') {
 // $filename = basename($_SERVER["REQUEST_URI"], '.php'); ###without php extension################################
 
 
-$filename = basename($_SERVER["REQUEST_URI"], '.php');
+$filename = basename($_SERVER["REQUEST_URI"]); #### pag false to may prompt error 
 
 require_once("../process/helper.php");
 // var_dump('<pre>',$_SERVER);die;
