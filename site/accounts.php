@@ -18,7 +18,13 @@ if ($user == '1') {
     header("Location: ../restricted.php"); // Redirect to a "Not Authorized" page
     exit;
 }
+// $filename = basename($_SERVER["REQUEST_URI"], '.php'); ###without php extension################################
 
+
+$filename = basename($_SERVER["REQUEST_URI"], '.php');
+
+require_once("../process/helper.php");
+// var_dump('<pre>',$_SERVER);die;
 
 
 ?>
@@ -61,7 +67,7 @@ if ($user == '1') {
 
     <main id="main" class="main">
         <div>
-            
+
         </div>
         <section class="section dashboard">
             <div class="row">
@@ -73,29 +79,34 @@ if ($user == '1') {
 
                             <div class="card">
                                 <div class="card-body">
-                             
-                                   
-                                    <div class="col-xxl-12 col-md-6">
-                                        <div class="row">
-                                            <div class="col-xxl-10 col-md-12">
-                                                <h5 class="card-title">User Accounts</h5>
-                                            </div>
-                                            <!-- <div class="col-xxl-5 col-md-12">
+
+                                    <?php if (dynamicdataTable(true, $filename, '')) { ?>
+                                        <div class="col-xxl-12 col-md-6">
+                                            <div class="row">
+                                                <div class="col-xxl-10 col-md-12">
+                                                    <h5 class="card-title">User Accounts</h5>
+                                                </div>
+                                                <!-- <div class="col-xxl-5 col-md-12">
                                                  <button type="button" class="btn btn-primary rounded-pill mt-2">Add User Account</button>
                                             </div> -->
-                                            <div class="col-xxl-2 col-md-12">
-                                                 <button type="button" class="btn btn-primary rounded-pill mt-3 w-100">Add User Account</button>
-                                                <!-- <h5 class="card-title">User Accounts</h5> -->
-                                            </div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div class=""></div>
-                                    <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable. Check for <a href="https://fiduswriter.github.io/simple-datatables/demos/" target="_blank">more examples</a>.</p> -->
-                                    <!-- Table with stripped rows -->
-                                    <?=dynamicdataTable(true,'useraccount')?>
-                                    <!-- End Table with stripped rows -->
+                                                <div class="col-xxl-2 col-md-12">
+                                                    <button type="button" class="btn btn-primary rounded-pill mt-3 w-100">Add User Account</button>
+                                                    <!-- <h5 class="card-title">User Accounts</h5> -->
+                                                </div>
 
+                                            </div>
+                                        </div>
+                                        <div class=""></div>
+                                        <!-- <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable. Check for <a href="https://fiduswriter.github.io/simple-datatables/demos/" target="_blank">more examples</a>.</p> -->
+                                        <!-- Table with stripped rows -->
+                                        <?= dynamicdataTable(true, $filename, '') ?>
+                                        <!-- End Table with stripped rows -->
+                                    <?php } else { ?>
+                                        <!-- getModalErrorMessage -->
+                                        <?= getModalErrorMessage() ?>
+
+
+                                    <?php } ?>
                                 </div>
                             </div>
 

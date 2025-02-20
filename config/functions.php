@@ -179,46 +179,90 @@ function canMobileOrDesktop($md, $user)
     return $layout;
 }
 
-function dynamicdataTable($isModalType,$subMod)
+function dynamicdataTable($isModalType, $subMod, $data)
 {
+    // var_dum
+    $connection = getDbConnection(); // Get the global DB connection
+
+    // $query = "SELECT * FROM tblMain";
+    // $emailCheckStmt = $connection->prepare($query);
+    // $emailCheckStmt->execute();
+
+    // $results = $emailCheckStmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+    // var_dump('<pre>',$data);
+
+
+    // var_dump('<pre>',$isModalType,$subMod,in_array($subMod,array('useraccount')))
+    // var_dump('<pre>',$connection);die;
+    if (!empty($subMod)) {
+
+        $query = "SELECT * FROM tblMain WHERE Link='{$subMod}'";
+        $emailCheckStmt = $connection->prepare($query);
+        $emailCheckStmt->execute();
+
+        // Get metadata to dynamically bind results
+        $meta = $emailCheckStmt->result_metadata();
+
+        $params = array();
+        while ($field = $meta->fetch_field()) {
+            $params[] = &$row[$field->name];
+        }
+
+
+        call_user_func_array([$emailCheckStmt, 'bind_result'], $params);
+
+        $data = array();
+        while ($emailCheckStmt->fetch()) {
+            $rowData = [];
+            foreach ($row as $key => $val) {
+                $rowData[$key] = $val;
+            }
+            $data[] = $rowData;
+        }
+    }
+
+    // var_dump('<pre>',count($data));
 
     if ($isModalType) {
-        if(in_array($subMod,'useraccount')) {
+        if (count($data) > 0) {
             $table = "<table class='table datatable'>
-            <thead>
-                <tr>
-                    <th>Fullname</th>
-    
-                    <th>Usertype</th>
-                    <th>Permission</th>
+                        <thead>
+                            <tr>
+                                <th>Fullname</th>
                 
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Unity Pugh</td>
-    
-                    <td>Admin</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Theodore Duran</td>
-                    <td>Admin</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>Kylie Bishop</td>
-                    <td>User</td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>";
+                                <th>Usertype</th>
+                                <th>Permission</th>
+                            
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Unity Pugh</td>
+                
+                                <td>Admin</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Theodore Duran</td>
+                                <td>Admin</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Kylie Bishop</td>
+                                <td>User</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>";
+        } else {
+
         }
-       
     } else {
         $table = "<table class='table datatable'>
         <thead>
@@ -256,5 +300,27 @@ function dynamicdataTable($isModalType,$subMod)
     }
 
 
-    return $table;
+    return $table ?? '';
+}
+
+
+function getModalErrorMessage() {
+    return "<div class='col-xxl-12 col-md-6'>
+                                            <div class='modal fade' id='restrictedModal' tabindex='-1' aria-labelledby='restrictedModalLabel' aria-hidden='true'>
+                                                <div class='modal-dialog modal-dialog-centered'>
+                                                    <div class='modal-content'>
+                                                        <div class='modal-header bg-danger text-white'>
+                                                            <h5 class='modal-title' id='restrictedModalLabel'>🚫 Access Denied</h5>
+                                                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                        </div>
+                                                        <div class='modal-body'>
+                                                            <p>You do not have permission to access this page. Please contact the administrator if you believe this is an error.</p>
+                                                        </div>
+                                                        <div class='modal-footer'>
+                                                            <a href='../site' class='btn btn-primary'>Return to Dashboard</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>";
 }
